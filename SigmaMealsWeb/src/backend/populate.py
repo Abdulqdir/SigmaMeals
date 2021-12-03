@@ -1,4 +1,8 @@
 import json
+import sqlite3
+
+conn = sqlite3.connect('./mysql_url/path?')
+c = conn.cursor()
 
 meals = {1:'breakfast', 2:'lunch',
 3:'dinner',4:'dessert',5:'appetizer', 6:'main Course',7:'main Dish',
@@ -82,7 +86,7 @@ def getRecipe():
             if flag == False:
                 break
         #insert recipe into sql table    
-        print(id, title, prep_time, price, imageUrl, meal_id, instruction)
+        c.execute("INSERT into RECIPE values (?, ?)", (id,title, meal_id, price,prep_time, 1111,descrip,instruction,imageUrl,"12/03/2021"))
 if __name__ == '__main__':
     recipe_ingre()
     getRecipe()
