@@ -22,7 +22,7 @@ recipeids = []
 def read_json_file():
     data = {}
 
-    with open(path.abspath("recipesAccurateIng.json"), 'r') as f:
+    with open(path.abspath("SigmaMealsWeb/recipesAccurateIng.json"), 'r') as f:
         data = json.load(f)
         return data
     return []
@@ -133,18 +133,15 @@ def getIngredientInserts():
             x, ingredients.get(x)))
 
 
-def getConsistsOfInserts():
-    for x in recipeids:
-        print("INSERT INTO CONSISTS_OF VALUES({},{},{},\'{}\');".format(
-            x,
-        ))
-
-
 if __name__ == '__main__':
+    # Print INGREDIENT inserts
     get_ingredients()
     getIngredientInserts()
     print()
+
+    # Print RECIPE inserts
     getRecipe()
     print()
-    # print(ingredients_measure)
+
+    # Print CONSISTS_OF inserts
     recipe_ingre()
