@@ -1,8 +1,4 @@
 import json
-import sqlite3
-
-conn = sqlite3.connect('./mysql_url/path?')
-c = conn.cursor()
 import os.path as path
 from random import randint
 
@@ -40,10 +36,7 @@ def get_ingredients():
             measure = ing.get('measures').get('us').get('unitLong')
             if ing.get('id') not in ingredients:
                 ingredients[ing.get('id')] = ing.get('nameClean')
-            if measure is not None:
-                if ingredients_measure.get(ing.get('id')) is None:
-                    ingredients_measure[ing.get('id')] = str(ing.get(
-                        'amount')) + ", " + measure
+                print("INSERT INTO INGREDIENT VALUES({},{});".format(ing.get('id'), ing.get('nameClean')))
     # insert to sql
     # print(ingredients_measure)
     # print(ingredients)
