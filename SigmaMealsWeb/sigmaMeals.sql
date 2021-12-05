@@ -320,7 +320,7 @@ INSERT INTO RECIPE
 VALUES(
     516705,
     'Kale Smoothie (Delicious, Healthy and Vegan!)',
-    9,
+    10,
     1.48,
     5,
     327,
@@ -334,7 +334,7 @@ INSERT INTO RECIPE
 VALUES(
     955591,
     'Baby Kale Breakfast Salad with Quinoa & Strawberries',
-    9,
+    1,
     2.26,
     15,
     324,
@@ -351,7 +351,7 @@ INSERT INTO RECIPE
 VALUES(
     557456,
     'Oatmeal Berry Breakfast Cake [Dairy, Gluten & Sugar Free]',
-    9,
+    1,
     2.15,
     3,
     329,
@@ -435,7 +435,7 @@ INSERT INTO RECIPE
 VALUES(
     17054,
     'Rosemary Chicken with Zucchini',
-    2,
+    3,
     67.44,
     45,
     328,
@@ -453,7 +453,7 @@ INSERT INTO RECIPE
 VALUES(
     380984,
     'Herbed Roast Chicken',
-    2,
+    3,
     66.58,
     150,
     321,
@@ -475,7 +475,7 @@ INSERT INTO RECIPE
 VALUES(
     629500,
     'Wild Herbed Pumpkin and Persimmon Soup',
-    2,
+    3,
     53.49,
     50,
     329,
@@ -494,7 +494,7 @@ INSERT INTO RECIPE
 VALUES(
     470214,
     'Chicken Fried Cauliflower Rice',
-    2,
+    7,
     47.84,
     30,
     322,
@@ -665,7 +665,7 @@ FROM USERS U
 /*
  Query 2
  
- Purpose: To view the count of the recipes which have strawberry, mango and apple.
+ Purpose: To view the count of the recipes which have strawberry, lemon and apple.
  Summary: There are a lot of recipes in the database and here we are interested in 
  getting all the recipes which has strawberry, mango and apple
  
@@ -677,8 +677,8 @@ FROM INGREDIENT,
 WHERE INGREDIENT.ingredient_id IN (
     SELECT ingredient_id
     FROM INGREDIENT
-    WHERE ingredient_id = 453
-      OR ingredient_id = 452
+    WHERE ingredient_id = 9150
+      OR ingredient_id = 9316
       OR ingredient_id = 9003
   )
   AND CONSISTS_OF.ingredient_id = INGREDIENT.ingredient_id
@@ -701,7 +701,7 @@ FROM RECIPE R
 WHERE recipe_total_cost < (
     SELECT AVG(recipe_total_cost)
     FROM RECIPE
-    WHERE MealID = R.MealID
+    WHERE meal_id = R.meal_id
   );
 /*
  Query 4
@@ -714,7 +714,7 @@ WHERE recipe_total_cost < (
 SELECT recipe_title,
   rating
 FROM RECIPE
-  FULL OUTER JOIN RATING ON RECIPE.recipeid = RATING.recipeid;
+  FULL OUTER JOIN RATING ON RECIPE.recipe_id = RATING.recipe_id;
 /*
  Query 5
  
@@ -812,7 +812,7 @@ SELECT R.recipe_title AS "Recipe Name",
 FROM RECIPE R,
   RATING RA,
   MEAL_TYPE M
-WHERE M.typename LIKE 'Main%'
+WHERE M.type_name LIKE 'Main%'
   AND R.recipe_id = RA.recipe_id
   AND R.meal_id = M.meal_id;
 /*
