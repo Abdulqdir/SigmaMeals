@@ -34,7 +34,7 @@ CREATE TABLE MEAL_TYPE (
 -- This stores the relevant information about the users for login in as well as 
 -- the first and last name of the user.
 -- -----------------------------------------------------
-CREATE TABLE USER (
+CREATE TABLE USERS (
   user_id INT NOT NULL PRIMARY KEY,
   firstname VARCHAR(256) NOT NULL,
   lastname VARCHAR(256) NOT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE RECIPE (
   PRIMARY KEY (recipe_id),
   CONSTRAINT RECIPES_MEAL_TYPE FOREIGN KEY (meal_id) REFERENCES MEAL_TYPE(meal_id) ON DELETE
   SET NULL,
-    CONSTRAINT RECIPE_USER FOREIGN KEY (created_user_id) REFERENCES USER(user_id) ON DELETE
+    CONSTRAINT RECIPE_USER FOREIGN KEY (created_user_id) REFERENCES USERS(user_id) ON DELETE
   SET NULL
 );
 -- -----------------------------------------------------
@@ -107,7 +107,7 @@ CREATE TABLE RATING (
     AND rating <= 5
   ),
   CONSTRAINT RATING_RECIPE FOREIGN KEY (recipe_id) REFERENCES RECIPE(recipe_id) ON DELETE CASCADE,
-  CONSTRAINT RATING_USER FOREIGN KEY (user_id) REFERENCES USER(user_id) ON DELETE
+  CONSTRAINT RATING_USER FOREIGN KEY (user_id) REFERENCES USERS(user_id) ON DELETE
   SET NULL
 );
 
@@ -134,7 +134,7 @@ VALUES (9, 'Brunch');
 INSERT INTO MEAL_TYPE
 VALUES (10, 'Drink');
 
-INSERT INTO USER
+INSERT INTO USERS
 VALUES (
     0,
     'admin',
@@ -143,7 +143,7 @@ VALUES (
     'SigmaRecipe@gmail.com',
     '12345666'
   );
-INSERT INTO USER
+INSERT INTO USERS
 VALUES (
     320,
     'Lam',
@@ -152,7 +152,7 @@ VALUES (
     'test1@gmail.com',
     '12345678'
   );
-INSERT INTO USER
+INSERT INTO USERS
 VALUES (
     321,
     'Abdulqadir',
@@ -161,7 +161,7 @@ VALUES (
     'test2@gmail.com',
     '12343578'
   );
-INSERT INTO USER
+INSERT INTO USERS
 VALUES (
     322,
     'Ruchik',
@@ -170,7 +170,7 @@ VALUES (
     'test3@gmail.com',
     '64345678'
   );
-INSERT INTO USER
+INSERT INTO USERS
 VALUES (
     323,
     'Artem',
@@ -179,7 +179,7 @@ VALUES (
     'test4@gmail.com',
     '12345958'
   );
-INSERT INTO USER
+INSERT INTO USERS
 VALUES (
     324,
     'Lam',
@@ -188,7 +188,7 @@ VALUES (
     'test5@gmail.com',
     '12345607'
   );
-INSERT INTO USER
+INSERT INTO USERS
 VALUES (
     325,
     'Abdulqadir',
@@ -197,7 +197,7 @@ VALUES (
     'test6@gmail.com',
     '12385678'
   );
-INSERT INTO USER
+INSERT INTO USERS
 VALUES (
     326,
     'Ruchik',
@@ -206,7 +206,7 @@ VALUES (
     'test7@gmail.com',
     '12345611'
   );
-INSERT INTO USER
+INSERT INTO USERS
 VALUES (
     327,
     'Artem',
@@ -215,7 +215,7 @@ VALUES (
     'test8@gmail.com',
     '12345670'
   );
-INSERT INTO USER
+INSERT INTO USERS
 VALUES (
     328,
     'Lam',
@@ -224,7 +224,7 @@ VALUES (
     'test9@gmail.com',
     '01345678'
   );
-INSERT INTO USER
+INSERT INTO USERS
 VALUES (
     329,
     'Abdulqadir',
@@ -562,12 +562,9 @@ INSERT INTO CONSISTS_OF VALUES(353123,18350, 4.0, 'ounce');
 INSERT INTO CONSISTS_OF VALUES(353123,1053, 1.0, 'Tbsp');
 INSERT INTO CONSISTS_OF VALUES(353123,1082047, 4.0, 'servings');
 INSERT INTO CONSISTS_OF VALUES(353123,1039195, 0.3333333333333333, 'cups');
-INSERT INTO CONSISTS_OF VALUES(353123,11282, 1.0, 'pound');
 INSERT INTO CONSISTS_OF VALUES(353123,11282, 4.0, 'slices');
 INSERT INTO CONSISTS_OF VALUES(353123,1145, 2.0, 'Tbsps');
-INSERT INTO CONSISTS_OF VALUES(353123,1145, 4.0, 'servings');
 INSERT INTO CONSISTS_OF VALUES(353123,4513, 2.0, 'Tbsps');
-INSERT INTO CONSISTS_OF VALUES(353123,4513, 4.0, 'servings');
 INSERT INTO CONSISTS_OF VALUES(574324,93798, 4.0, 'servings');
 INSERT INTO CONSISTS_OF VALUES(574324,11215, 4.0, 'cloves');
 INSERT INTO CONSISTS_OF VALUES(574324,4053, 2.0, 'Tbsps');
@@ -605,7 +602,6 @@ INSERT INTO CONSISTS_OF VALUES(380984,6971, 1.0, 'Tbsp');
 INSERT INTO CONSISTS_OF VALUES(629500,1001, 1.0, 'Tbsp');
 INSERT INTO CONSISTS_OF VALUES(629500,1053, 150.0, 'fl. ozs');
 INSERT INTO CONSISTS_OF VALUES(629500,11216, 1.0, 'small piece');
-INSERT INTO CONSISTS_OF VALUES(629500,1002044, 1.0, 'bunch');
 INSERT INTO CONSISTS_OF VALUES(629500,1002044, 6.0, 'servings');
 INSERT INTO CONSISTS_OF VALUES(629500,1012042, 1.0, 'pounds');
 INSERT INTO CONSISTS_OF VALUES(629500,4053, 1.0, 'Tbsp');
@@ -663,7 +659,7 @@ VALUES (470214, 329, 0);
 SELECT U.email,
   R.recipe_title,
   RT.rating
-FROM USER U
+FROM USERS U
   JOIN RATING RT ON U.user_id = RT.user_id
   JOIN RECIPE R ON R.recipe_id = RT.recipe_id;
 /*
@@ -753,10 +749,10 @@ WHERE recipe_total_cost < 10.0;
  Summary: Selects every user who has left a perfect 5 star review and how many they have left in total
  
  */
-SELECT USER.firstname,
-  USER.lastname,
+SELECT USERS.firstname,
+  USERS.lastname,
   C.Rating_Count
-FROM USER,
+FROM USERS,
   (
     SELECT R.user_id,
       COUNT(R.user_id) Rating_Count
@@ -767,7 +763,7 @@ FROM USER,
       ) R
     GROUP BY R.user_id
   ) C
-WHERE USER.user_id = C.user_id;
+WHERE USERS.user_id = C.user_id;
 /*
  Query 7
  
@@ -796,7 +792,7 @@ WHERE RECIPE.recipe_id = RATING.recipe_id
 SELECT firstname AS "First Name",
   lastname AS "Last Name",
   recipe_title AS "Recipe Name"
-FROM USER,
+FROM USERS,
   RECIPE
 WHERE created_user_id = user_id
   AND firstname <> 'admin'
@@ -825,14 +821,14 @@ WHERE M.typename LIKE 'Main%'
  Purpose: To get every ingredient that a user has used and the associated recipe.
  Summary: Get every ingredient used in a recipe and the person who used that ingredient along with which recipe it was used in.
  */
-SELECT USER.firstname,
-  USER.lastname,
+SELECT USERS.firstname,
+  USERS.lastname,
   R.recipe_title,
   ING.ing_name
-FROM USER,
+FROM USERS,
   RECIPE R,
   CONSISTS_OF,
   INGREDIENT ING
 WHERE R.recipe_id = CONSISTS_OF.recipe_id
   AND CONSISTS_OF.ingredient_id = ING.ingredient_id
-  AND USER.user_id = R.created_user_id;
+  AND USERS.user_id = R.created_user_id;
