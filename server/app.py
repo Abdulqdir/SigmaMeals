@@ -2,6 +2,7 @@
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from module import *
+import os
 
 #create flask instance
 app = Flask(__name__)
