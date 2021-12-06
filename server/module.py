@@ -1,4 +1,4 @@
-from .app import db
+from app import db
 from datetime import datetime
 class RECIPE(db.Model):
     recipe_id = db.Column(db.Integer, primary_key = True, nullable = False)
