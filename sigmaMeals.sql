@@ -13,8 +13,8 @@
  5. Click "Perform Action(s)"
  */
 --- Need this for LiveSQL
-ALTER SESSION
-SET NLS_DATE_FORMAT = 'YYYY-MM-DD';
+-- ALTER SESSION
+-- SET NLS_DATE_FORMAT = 'YYYY-MM-DD';
 --- Uncomment this when using MySQL ---
 --DROP DATABASE IF EXISTS `sigmaMeals`;
 --CREATE DATABASE IF NOT EXISTS `sigmaMeals`;
@@ -25,6 +25,7 @@ SET NLS_DATE_FORMAT = 'YYYY-MM-DD';
 -- Table MEAL_TYPE
 -- This stores the type of meal for a recipe. For example, a recipe can be of type Lunch or Dinner.
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS MEAL_TYPE;
 CREATE TABLE MEAL_TYPE (
   meal_id INT NOT NULL PRIMARY KEY,
   type_name VARCHAR(45) NOT NULL
@@ -34,6 +35,7 @@ CREATE TABLE MEAL_TYPE (
 -- This stores the relevant information about the users for login in as well as 
 -- the first and last name of the user.
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS USERS;
 CREATE TABLE USERS (
   user_id INT NOT NULL PRIMARY KEY,
   firstname VARCHAR(256) NOT NULL,
@@ -41,25 +43,26 @@ CREATE TABLE USERS (
   username VARCHAR(256) NOT NULL UNIQUE,
   email VARCHAR(256) DEFAULT 'Not Provided' NOT NULL UNIQUE,
   password VARCHAR(256) NOT NULL,
-  CHECK (LENGTHB(username) >= 4),
-  CHECK (LENGTHB(password) >= 8)
+  CHECK (LENGTH(username) >= 4),
+  CHECK (LENGTH(password) >= 8)
 );
 -- -----------------------------------------------------
 -- Table RECIPE
 -- This stores information that represent a recipe. Most notably
 -- the title, cost, description, and the ID of the user that created it.
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS RECIPE;
 CREATE TABLE RECIPE (
   recipe_id INT NOT NULL,
   recipe_title VARCHAR(256) NOT NULL,
   meal_id INT,
-  recipe_total_cost NUMBER(5, 2) NOT NULL,
+  recipe_total_cost NUMERIC(5, 2) NOT NULL,
   prep_time VARCHAR(45) DEFAULT '5 minutes' NOT NULL,
   created_user_id INT DEFAULT 0 NOT NULL,
-  recipe_description VARCHAR(600) DEFAULT 'No description provided' NOT NULL,
+  recipe_description VARCHAR(10000) DEFAULT 'No description provided' NOT NULL,
   instructions VARCHAR(3000) DEFAULT 'No instruction provided',
   image_url VARCHAR(256) DEFAULT 'No image provided',
-  created_date DATETIME NOT NULL,
+  created_date TIMESTAMP NOT NULL,
   PRIMARY KEY (recipe_id),
   CONSTRAINT RECIPES_MEAL_TYPE FOREIGN KEY (meal_id) REFERENCES MEAL_TYPE(meal_id) ON DELETE
   SET NULL,
@@ -70,6 +73,7 @@ CREATE TABLE RECIPE (
 -- Table INGREDIENT
 -- This stores the relevant information to describe an ingredient.
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS INGREDIENT;
 CREATE TABLE INGREDIENT (
   ingredient_id INT NOT NULL,
   ing_name VARCHAR(45) NOT NULL,
@@ -80,6 +84,7 @@ CREATE TABLE INGREDIENT (
 -- This is a joint table that stores the recipe_id and ingredient_id to link
 -- the different ingredients that are assciated with a recipe.
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS CONSISTS_OF;
 CREATE TABLE CONSISTS_OF (
   recipe_id INT NOT NULL,
   ingredient_id INT NOT NULL,
@@ -97,6 +102,7 @@ CREATE TABLE CONSISTS_OF (
 -- Table RATING
 -- This stores the user ratings for a specific recipe.
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS RATING;
 CREATE TABLE RATING (
   recipe_id INT NOT NULL,
   user_id INT NOT NULL,
@@ -328,7 +334,7 @@ VALUES(
     'step 1 : Put all of the ingredients in a blender – blend until smooth. Drink and enjoy.
 ',
     'https://spoonacular.com/recipeImages/516705-556x370.jpg',
-    GetDate()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -345,7 +351,7 @@ step 3 : Add kale; toss to coat.
 step 4 : Serve topped with quinoa, strawberries and pepitas.
 ',
     'https://spoonacular.com/recipeImages/955591-556x370.jpg',
-    GetDate()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -362,7 +368,7 @@ step 3 : Add berries.Save a few for topping if desired. Microwave for 3 minutes 
 step 4 : Serve warm with additional toppings.
 ',
     'https://spoonacular.com/recipeImages/557456-556x370.jpg',
-    GetDate()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -384,7 +390,7 @@ step 8 : Combine the minced rosemary, oil, pepper and remaining brown sugar; spr
 step 9 : Bake 15-25 minutes longer or until a thermometer reads 180° and beans are tender.
 ',
     'https://spoonacular.com/recipeImages/381569-556x370.jpg',
-    GetDate()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -405,7 +411,7 @@ step 5 : Transfer the hamburger to the buns and serve.
 step 6 : Spread the meat out on a board and grate 2 to 3 tablespoons of onion into ituse a fairly fine grater so you get just the juice and very finely grated raw onion. Now mix in about a tablespoon of heavy cream and some freshly ground black pepper. Form into pattiesa 6 to 8-ounce patty for an average serving.
 ',
     'https://spoonacular.com/recipeImages/353123-556x370.jpeg',
-    GetDate()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -429,7 +435,7 @@ step 10 : Add garlic to oil. Coat tenderloin with oil and garlic solution and co
 step 11 : Let rest for 10 minutes prior to serving.
 ',
     'https://spoonacular.com/recipeImages/574324-556x370.jpg',
-    GetDate()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -447,7 +453,7 @@ step 4 : Heat oven to 400 F.
 step 5 : Remove the bags from the freezer (you''ll need 1 bag for each serving). Empty the contents of the bags into a baking dish. Roast for 25 minutes. Toss the vegetables, turn the chicken, and continue roasting until the chicken is cooked through, 20 to 25 minutes more. Divide among individual plates.
 ',
     'https://spoonacular.com/recipeImages/17054-556x370.jpg',
-    GetDate()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -469,7 +475,7 @@ step 8 : Remove chicken from oven; tent with foil.
 step 9 : Let stand 15 minutes before carving.
 ',
     'https://spoonacular.com/recipeImages/380984-556x370.jpg',
-    GetDate()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -488,7 +494,7 @@ step 5 : Pour the cream into the pan, add the herbs, then pure with a hand blend
 step 6 : Serve piping hot topped with sunflower seeds, a few drops of sunflower oil and a sprinkle of the wild herbs.
 ',
     'https://spoonacular.com/recipeImages/629500-556x370.jpg',
-    GetDate()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -507,7 +513,7 @@ step 5 : Add the cauliflower rice, mix everything up and stir-fry for 2 minutes.
 step 6 : Mix in the mixture of the soy sauce, sweet soy sauce, chili sauce, sesame oil and green onions, remove from heat and enjoy.
 ',
     'https://spoonacular.com/recipeImages/470214-556x370.jpg',
-    GetDate()
+    NOW()
   );
 INSERT INTO CONSISTS_OF VALUES(516705,11233, 4.0, 'leaves');
 INSERT INTO CONSISTS_OF VALUES(516705,11457, 1.0, 'cup');
@@ -740,7 +746,7 @@ FROM (
     FROM RECIPE,
       RATING
     WHERE RATING = 4
-  )
+  ) AS subquery
 WHERE recipe_total_cost < 10.0;
 /*
  Query 6
