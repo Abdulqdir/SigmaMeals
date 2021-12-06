@@ -6,6 +6,7 @@ from module import *
 #create flask instance
 app = Flask(__name__)
 # add database
+app.config['SECRET_KEY'] = 'secret'
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://://gtbbojbdpfuvny:d763d0bf441b5a29c4fa6542b26502e7934ea733ad4bfcb02d7903bcd7affca6@ec2-3-95-130-249.compute-1.amazonaws.com:5432/d7s9m35lp1c3ph"
 # create tables/intialise the database
 db = SQLAlchemy(app)
