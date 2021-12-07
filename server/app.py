@@ -1,5 +1,5 @@
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify,json
 from flask_sqlalchemy import SQLAlchemy
 from module import *
 
@@ -9,9 +9,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://gtbbojbdpfuvny:d763d0bf441b5a29c4fa6542b26502e7934ea733ad4bfcb02d7903bcd7affca6@ec2-3-95-130-249.compute-1.amazonaws.com:5432/d7s9m35lp1c3ph"
 # create tables/intialise the database
 db = SQLAlchemy(app)
-# user id
-user_id = 330
-#why do we need to methods = ["post"]
+
 # add user to the database
 @app.route("/create_user", methods = ['post'])
 def create_user():
@@ -21,12 +19,22 @@ def create_user():
     email = req.get('email')
     user_name = req.get('user_name')
     password = req.get('password')
+    db.engine.execute(
+        'INSERT INTO USERS VALUES(\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')'.format(first_name,last_name,email,user_name, password)).first()
 
-    result = USERS(user_id=user_id, first_name=first_name, last_name=last_name,
-                   email=email, user_name=user_name, password=password)
-    db.session.add(result)
-    db.session.commit()
-    return 'information was added!'
+    # result = USERS(user_id=user_id, first_name=first_name, last_name=last_name,
+    #                email=email, user_name=user_name, password=password)
+    # db.session.add(result)
+    # db.session.commit()
+    result = db.engine.execute(
+        'SELECT username FROM USERS WHERE USERS.username = \'{}\' '.format(user_name)).first()
+
+    if result is None:
+        return jsonify({"error": "User not added"}), 200
+    else:
+        return {
+            "token": "super_secret_token"
+        }
 
 # add user to the database
 @app.route("/login", methods = ['POST'])
@@ -45,7 +53,25 @@ def login():
             "token": "super_secret_token"
         }
 
+# add user to the database
+@app.route("/Browse", methods = ['GET'])
+def browse_recipe():
+    
+    result = db.engine.execute(
+        'SELECT * FROM RECIPE').all()
+
+    if result is None:
+        return jsonify({"error": "unsuccessful query"}), 401
+        # return "user doesn't exist"
+    else:
+        return jsonify(result)
+
 
 if __name__ == '__main__':
-    app.run(debug=True)
-    
+    #app.run(debug=True)
+    result = db.engine.execute(
+        'SELECT * FROM RECIPE').all()
+    string = ""
+    for i in  result:
+        string = string + str(dict(i))
+    print(string)
