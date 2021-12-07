@@ -79,10 +79,4 @@ def serve(path):
         return send_from_directory(app.static_folder, 'index.html')
 
 if __name__ == '__main__':
-    #app.run(debug=True)
-    result = db.engine.execute(
-        'SELECT * FROM RECIPE').all()
-    string = ""
-    for i in  result:
-        string = string + str(dict(i))
-    print(string)
+    app.run(debug=True)
