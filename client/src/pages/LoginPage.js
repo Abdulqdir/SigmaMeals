@@ -23,12 +23,13 @@ const LoginPage = () => {
   // };
 
   const loginFetch = async () => {
-    await fetch("http://127.0.0.1:5000/login", {
+    await fetch("/login", {
       method: "POST",
       headers: {
+        Authorization: "Basic " + username + ":" + password,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username: username, password: password }),
+      // body: JSON.stringify({ username: username, password: password }),
     })
       .then((resp) => {
         if (resp.status === 200) {

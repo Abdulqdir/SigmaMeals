@@ -3,7 +3,6 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from module import *
 import os
-from flask_cors import CORS, cross_origin
 
 # create flask instance
 app = Flask(__name__)
@@ -15,8 +14,6 @@ db = SQLAlchemy(app)
 user_id = 330
 # why do we need to methods = ["post"]
 # add user to the database
-
-CORS(app, supports_credentials=True)
 
 
 @app.route('/create_user', methods=['post'])
@@ -37,11 +34,16 @@ def create_user():
 # add user to the database
 
 
-@app.route('/login', methods=['POST'])
+@app.route("/login", methods=['POST'])
 def login():
-    req = request.json
-    user_name = req.get('username')
-    password = req.get('password')
+    # req = request.json
+    # user_name = req.get('username')
+    # password = req.get('password')
+    auth = request.headers.get('Authorization')
+    auth = auth.split(" ")
+    user_name = auth[1].split(":")[0]
+    password = auth[1].split(":")[1]
+    print(user_name, password)
 
     #result = USERS.query.filter_by(username=user_name, password = password).first()
     result = db.engine.execute(
