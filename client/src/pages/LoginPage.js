@@ -1,46 +1,57 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 // import httpClient from "../httpClient";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const logInUser = () => {
-    console.log(email, password);
+  // const loginAxios = async () => {
+  //   // Axios stuff
+  //   try {
+  //     const resp = await httpClient.post("//127.0.0.1:5000/login", {
+  //       username,
+  //       password,
+  //     });
 
-    // Axios stuff
-    // try {
-    //   const resp = await httpClient.get("//localhost:5000/login", {
-    //     email,
-    //     password,
-    //   });
+  //     // redirect to landing page if no errors
+  //     window.location.href = "/";
+  //   } catch (error) {
+  //     if (error.response.status === 401) {
+  //       alert("Invalid Credential");
+  //     }
+  //   }
+  // };
 
-    //   window.location.href = "/"; //return to landing page if login succeed
-    // } catch (error) {
-    //   if (error.resp.status === 401) {
-    //     alert("Invalid Credential");
-    //   }
-    // }
-  };
-
-  useEffect(() => {
-    fetch("/login").then((resp) =>
-      resp.json().then((data) => {
-        console.log(data);
+  const loginFetch = async () => {
+    await fetch("http://127.0.0.1:5000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username: username, password: password }),
+    })
+      .then((resp) => {
+        if (resp.status === 200) {
+          window.location.href = "/";
+        } else if (resp.status === 401) {
+          alert("Invalid Credential");
+        }
       })
-    );
-  }, []);
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div style={{ padding: "20px" }}>
       <h1>Please log in</h1>
       <form>
         <div>
-          <label>Email: </label>,
+          <label>Username: </label>
           <input
             type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             id=""
           />
         </div>
@@ -53,7 +64,7 @@ const LoginPage = () => {
             id=""
           />
         </div>
-        <button type="button" onClick={() => logInUser()}>
+        <button type="button" onClick={() => loginFetch()}>
           Submit
         </button>
       </form>
