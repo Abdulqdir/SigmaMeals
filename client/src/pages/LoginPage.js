@@ -24,7 +24,7 @@ const LoginPage = () => {
 
   const loginFetch = async () => {
     await fetch("/login", {
-      method: "POST",
+      method: "GET",
       headers: {
         Authorization: "Basic " + username + ":" + password,
         "Content-Type": "application/json",
