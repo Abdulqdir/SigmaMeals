@@ -35,11 +35,13 @@ def login():
     user_name = req.get('username')
     password = req.get('password')
     #result = USERS.query.filter_by(username=user_name, password = password).first()
-    result = str(db.engine.execute('SELECT username, password FROM USERS WHERE USERS.user_name = {} AND USERS.password = {}'.format(user_name,password)).first())
+    result = db.engine.execute('SELECT username, password FROM USERS WHERE USERS.user_name = {} AND USERS.password = {}'.format(user_name,password)).first()
     if result is None:
         return "user doesn't exist"
     else:
-        return result.user_name
+        return {
+            "token": "super_secret_token"
+                }
 
 if __name__ == '__main__':
     row = str(db.session.execute('SELECT {}, rating FROM RECIPE FULL OUTER JOIN RATING ON RECIPE.recipe_id = RATING.recipe_id'.format("recipe_title")).first())
