@@ -13,7 +13,7 @@ db = SQLAlchemy(app)
 user_id = 330
 #why do we need to methods = ["post"]
 # add user to the database
-@app.route('/create_user', methods = ['post'])
+@app.route("/create_user", methods = ['post'])
 def create_user():
     req = request.json
     first_name = req.get('first_name')
@@ -29,13 +29,11 @@ def create_user():
     return 'information was added!'
 
 # add user to the database
-@app.route('/login', methods = ['GET'])
+@app.route("/login", methods = ['POST'])
 def login():
     req = request.json
     user_name = req.get('username')
     password = req.get('password')
-
-    #result = USERS.query.filter_by(username=user_name, password = password).first()
     result = db.engine.execute(
         'SELECT username, password FROM USERS WHERE USERS.username = \'{}\' AND USERS.password = \'{}\''.format(user_name, password)).first()
 
@@ -50,8 +48,4 @@ def login():
 
 if __name__ == '__main__':
     app.run(debug=True)
-    row = str(db.session.execute(
-        'SELECT {}, rating FROM RECIPE FULL OUTER JOIN RATING ON RECIPE.recipe_id = RATING.recipe_id'.format("recipe_title")).first())
-    result = USERS(user_id=1111, first_name='Abdulqadir', last_name="Ibrahim",
-                   email="email@gmail.com", user_name="king", password="782754gh")
-    print(row)
+    
