@@ -10,4 +10,3 @@ psycopg2-binary==2.9.2
 PyMySQL==1.0.2
 SQLAlchemy==1.4.27
 Werkzeug==2.0.2
-flask-cors
