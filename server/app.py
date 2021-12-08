@@ -50,10 +50,15 @@ def login():
     # req = request.json
     # user_name = req.get('username')
     # password = req.get('password')
-    auth = request.headers.get('Authorization')
-    auth = auth.split(" ")
-    user_name = auth[1].split(":")[0]
-    password = auth[1].split(":")[1]
+    # auth = request.headers.get('Authorization')
+    auth = request.authorization
+    # print(request.authorization)
+    # print(base64.b64decode(auth))
+    # auth = auth.split(" ")
+    # user_name = auth[1].split(":")[0]
+    user_name = auth.username
+    # password = auth[1].split(":")[1]
+    password = auth.password
     print(user_name, password)
 
     #result = USERS.query.filter_by(username=user_name, password = password).first()
@@ -99,3 +104,4 @@ def serve(path):
 
 if __name__ == '__main__':
     app.run(debug=True)
+    #print(jsonify(username="data",email="error",id="id"))

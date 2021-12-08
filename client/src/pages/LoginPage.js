@@ -26,7 +26,7 @@ const LoginPage = () => {
     await fetch('/auth', {
       method: 'GET',
       headers: {
-        Authorization: 'Basic ' + username + ':' + password,
+        Authorization: 'Basic ' + btoa(username + ':' + password),
         'Content-Type': 'application/json',
       },
       // body: JSON.stringify({ username: username, password: password }),
@@ -42,6 +42,7 @@ const LoginPage = () => {
       })
       .then((data) => {
         console.log(data);
+        //alert('idk');
         window.location.href = '/';
       })
       .catch((error) => {
