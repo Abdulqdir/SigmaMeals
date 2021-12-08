@@ -8,18 +8,18 @@ import { Router } from "./Router";
 ReactDOM.render(
   <React.StrictMode>
     {/* <App /> */}
-    <Router />
-
     {/* REMOVE THIS WHEN U HAVE A PROPER NAVBAR  */}
-    <div>
-      <a href="/">
+    <div style={{ display: "flex" }}>
+      <a href="/" style={{ padding: "20px" }}>
         <p>Home</p>
       </a>
-      <a href="/browseRecipes">
+      <a href="/browseRecipes" style={{ padding: "20px" }}>
         <p>Browse Recipes</p>
       </a>
     </div>
     {/* REMOVE THIS WHEN U HAVE A PROPER NAVBAR  */}
+
+    <Router />
   </React.StrictMode>,
   document.getElementById("root")
 );

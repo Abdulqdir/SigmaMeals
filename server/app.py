@@ -59,10 +59,10 @@ def login():
 
     #result = USER.query.filter_by(username=user_name, password = password).first()
     result = db.engine.execute(
-        'SELECT username, password FROM USER WHERE USER.username = \'{}\' AND USER.password = \'{}\''.format(user_name, password)).first()
+        'SELECT username, password FROM USERS WHERE USERS.username = \'{}\' AND USERS.password = \'{}\''.format(user_name, password)).first()
 
     if result is None:
-        return {"error": "Unauthorized"}
+        return {"error": "Unauthorized"}, 401
         # return "user doesn't exist"
     else:
         return {
@@ -79,7 +79,7 @@ def browse_recipe():
         'SELECT * FROM RECIPE').all()
 
     if result is None:
-        return {"error": "unsuccessful query"}
+        return {"error": "unsuccessful query"}, 401
     else:
         return jsonify({'result': [dict(row) for row in result]})
 
