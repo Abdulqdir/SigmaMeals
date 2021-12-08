@@ -1,34 +1,25 @@
 
+from operator import methodcaller
 from flask import Flask, request, jsonify, json
 import os
 from flask import Flask, request, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import query
 from module import *
 import random
 
 # create flask instance
 app = Flask(__name__, static_folder='../client/build')
 # add database
-<<<<<<< HEAD
-
-=======
->>>>>>> 6f3d6910ad45c3afa12a1daec12e8163123f7b2d
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://gtbbojbdpfuvny:d763d0bf441b5a29c4fa6542b26502e7934ea733ad4bfcb02d7903bcd7affca6@ec2-3-95-130-249.compute-1.amazonaws.com:5432/d7s9m35lp1c3ph"
 # create tables/intialise the database
 db = SQLAlchemy(app)
 
 # add user to the database
-<<<<<<< HEAD
-# here 'methods = post' means this route accpets post reuests
-# by default it accepts get 
-@app.route('/add_user', methods = ['post'])
-def add_user():
-=======
 
 
 @app.route('/create_user', methods=['post'])
 def create_user():
->>>>>>> 6f3d6910ad45c3afa12a1daec12e8163123f7b2d
     req = request.json
     user_id = random.getrandbits(12)
     first_name = req.get('first_name')
@@ -103,6 +94,43 @@ def browse_recipe():
         return recipe_dict, 200
 
 
+
+@app.route("/mealtype", methods=['GET'])
+def get_recipes_meal_type():
+    arg = request.args.get('mealtype')
+    query_result = db.engine.execute(
+        '''
+        SELECT R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, M.type_name, RA.rating
+        FROM MEAL_TYPE M, RECIPE R, RATING RA
+        WHERE M.type_name = '{}'
+        AND R.meal_id = M.meal_id
+        AND R.recipe_id = RA.recipe_id
+           '''.format(arg)).all()
+
+    if query_result is None:
+        return jsonify({"error": "unsuccessful query"}), 401
+    else:
+        return json.dumps([dict(r) for r in query_result]), 200
+
+
+#@app.route("/search", methods=['GET'])
+def search():
+  #  arg = request.args.get('recipe_name')
+    arg = "%chicken%"
+    print("----------------------------------")
+    query_result = db.engine.execute(
+        '''
+        SELECT *
+        FROM RECIPE
+        WHERE recipe_title LIKE '{}'
+        '''.format(arg)).all()
+    print(query_result)
+
+    if query_result is None:
+        return jsonify({"error": "unsuccessful query"}), 401
+    else:
+        return json.dumps([dict(r) for r in query_result]), 200
+
 # Serve React App
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
@@ -114,11 +142,6 @@ def serve(path):
 
 
 if __name__ == '__main__':
-<<<<<<< HEAD
-    app.debug=True
-    row = db.engine.execute('SELECT recipe_title, rating FROM RECIPE FULL OUTER JOIN RATING ON RECIPE.recipe_id = RATING.recipe_id').all()
-    print(row)
-=======
-    app.run(debug=True)
+    #app.run(debug=True)
+    search()
     #print(jsonify(username="data",email="error",id="id"))
->>>>>>> 6f3d6910ad45c3afa12a1daec12e8163123f7b2d
