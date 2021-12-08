@@ -23,7 +23,7 @@ const LoginPage = () => {
   // };
 
   const loginFetch = async () => {
-    await fetch("/login", {
+    await fetch("/auth", {
       method: "GET",
       headers: {
         Authorization: "Basic " + username + ":" + password,

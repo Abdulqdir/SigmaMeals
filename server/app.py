@@ -43,7 +43,7 @@ def create_user():
 # add user to the database
 
 
-@app.route("/login", methods=['GET'])
+@app.route("/auth", methods=['GET'])
 def login():
     # req = request.json
     # user_name = req.get('username')
@@ -52,7 +52,6 @@ def login():
     auth = auth.split(" ")
     user_name = auth[1].split(":")[0]
     password = auth[1].split(":")[1]
-    print(user_name, password)
 
     #result = USERS.query.filter_by(username=user_name, password = password).first()
     result = db.engine.execute(
