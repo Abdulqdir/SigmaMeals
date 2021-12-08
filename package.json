@@ -1,0 +1,19 @@
+{
+  "name": "sigmameals",
+  "version": "0.1.0",
+  "description": "recipe website that utilises javaScript,python and SQL to host budget oriented recipes for students",
+  "main": "index.js",
+  "scripts": {
+    "start": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abdulqdir/SigmaMeals.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Abdulqdir/SigmaMeals/issues"
+  },
+  "homepage": "https://github.com/Abdulqdir/SigmaMeals#readme"
+}
