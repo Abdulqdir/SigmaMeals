@@ -93,7 +93,7 @@ def serve(path):
 
 
 if __name__ == '__main__':
-    # app.run(debug=True)
+    app.run(debug=True)
     result = db.engine.execute(
         'SELECT * FROM RECIPE').all()
     string = ""

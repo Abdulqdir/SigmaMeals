@@ -33,14 +33,10 @@ const LoginPage = () => {
     })
       .then((resp) => {
         if (resp.status === 200) {
-          return resp.json();
+          window.location.href = "/";
         } else if (resp.status === 401) {
           alert("Invalid Credential");
         }
-      })
-      .then((data) => {
-        console.log(data);
-        window.location.href = "/";
       })
       .catch((error) => {
         console.log(error);
