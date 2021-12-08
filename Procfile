@@ -1,1 +1,1 @@
-web: npm start && cd .. && cd server && python app.py
+web: cd server && python app.py
