@@ -1,9 +1,9 @@
-import { React, useState } from "react";
+import { React, useState } from 'react';
 // import httpClient from "../httpClient";
 
 const LoginPage = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   // const loginAxios = async () => {
   //   // Axios stuff
@@ -23,11 +23,11 @@ const LoginPage = () => {
   // };
 
   const loginFetch = async () => {
-    await fetch("/login", {
-      method: "GET",
+    await fetch('/auth', {
+      method: 'GET',
       headers: {
-        Authorization: "Basic " + username + ":" + password,
-        "Content-Type": "application/json",
+        Authorization: 'Basic ' + btoa(username + ':' + password),
+        'Content-Type': 'application/json',
       },
       // body: JSON.stringify({ username: username, password: password }),
     })
@@ -35,12 +35,15 @@ const LoginPage = () => {
         if (resp.status === 200) {
           return resp.json();
         } else if (resp.status === 401) {
-          alert("Invalid Credential");
+          alert('Invalid Credential');
+        } else {
+          alert('Some error occurred');
         }
       })
       .then((data) => {
         console.log(data);
-        window.location.href = "/";
+        //alert('idk');
+        window.location.href = '/';
       })
       .catch((error) => {
         console.log(error);
@@ -48,7 +51,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div style={{ padding: '20px' }}>
       <h1>Please log in</h1>
       <form>
         <div>
