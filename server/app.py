@@ -1,7 +1,9 @@
 
+from operator import methodcaller
 import os
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, json, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import query
 from module import *
 import random
 
@@ -84,7 +86,45 @@ def browse_recipe():
         return jsonify({'result': [dict(row) for row in result]})
 
 
+@app.route("/mealtype", methods=['GET'])
+def get_recipes_meal_type():
+    arg = request.args.get('mealtype')
+    query_result = db.engine.execute(
+        '''
+        SELECT R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, M.type_name, RA.rating
+        FROM MEAL_TYPE M, RECIPE R, RATING RA
+        WHERE M.type_name = '{}'
+        AND R.meal_id = M.meal_id
+        AND R.recipe_id = RA.recipe_id
+           '''.format(arg)).all()
+
+    if query_result is None:
+        return jsonify({"error": "unsuccessful query"}), 401
+    else:
+        return json.dumps([dict(r) for r in query_result]), 200
+
+
+# @app.route("/search", methods=['GET'])
+def search():
+  #  arg = request.args.get('recipe_name')
+    arg = "%chicken%"
+    print("----------------------------------")
+    query_result = db.engine.execute(
+        '''
+        SELECT *
+        FROM RECIPE
+        WHERE recipe_title LIKE '{}'
+        '''.format(arg)).all()
+    print(query_result)
+
+    if query_result is None:
+        return jsonify({"error": "unsuccessful query"}), 401
+    else:
+        return json.dumps([dict(r) for r in query_result]), 200
+
 # Serve React App
+
+
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):
