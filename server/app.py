@@ -1,5 +1,5 @@
 
-from flask import Flask, request, jsonify,json
+from flask import Flask, request, jsonify, json
 import os
 from flask import Flask, request, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
@@ -13,7 +13,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://gtbbojbdpfuvny:d763d0bf441
 db = SQLAlchemy(app)
 
 # add user to the database
-@app.route("/create_user", methods = ['post'])
+
+
+@app.route('/create_user', methods=['post'])
 def create_user():
     req = request.json
     first_name = req.get('first_name')
@@ -22,7 +24,7 @@ def create_user():
     user_name = req.get('user_name')
     password = req.get('password')
     db.engine.execute(
-        'INSERT INTO USERS VALUES(\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')'.format(first_name,last_name,email,user_name, password)).first()
+        'INSERT INTO USERS VALUES(\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')'.format(first_name, last_name, email, user_name, password)).first()
 
     # result = USERS(user_id=user_id, first_name=first_name, last_name=last_name,
     #                email=email, user_name=user_name, password=password)
@@ -39,11 +41,20 @@ def create_user():
         }
 
 # add user to the database
-@app.route("/login", methods = ['POST'])
+
+
+@app.route("/login", methods=['GET'])
 def login():
-    req = request.json
-    user_name = req.get('username')
-    password = req.get('password')
+    # req = request.json
+    # user_name = req.get('username')
+    # password = req.get('password')
+    auth = request.headers.get('Authorization')
+    auth = auth.split(" ")
+    user_name = auth[1].split(":")[0]
+    password = auth[1].split(":")[1]
+    print(user_name, password)
+
+    #result = USERS.query.filter_by(username=user_name, password = password).first()
     result = db.engine.execute(
         'SELECT username, password FROM USERS WHERE USERS.username = \'{}\' AND USERS.password = \'{}\''.format(user_name, password)).first()
 
@@ -56,9 +67,11 @@ def login():
         }
 
 # add user to the database
-@app.route("/Browse", methods = ['GET'])
+
+
+@app.route("/Browse", methods=['GET'])
 def browse_recipe():
-    
+
     result = db.engine.execute(
         'SELECT * FROM RECIPE').all()
 
@@ -78,11 +91,12 @@ def serve(path):
     else:
         return send_from_directory(app.static_folder, 'index.html')
 
+
 if __name__ == '__main__':
-    #app.run(debug=True)
+    # app.run(debug=True)
     result = db.engine.execute(
         'SELECT * FROM RECIPE').all()
     string = ""
-    for i in  result:
+    for i in result:
         string = string + str(dict(i))
     print(string)
