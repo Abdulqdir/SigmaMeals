@@ -11,8 +11,6 @@ const BrowseRecipes = () => {
       .then((data) => setRecipes(data.result));
   }, []);
 
-  console.log(recipes);
-
   return (
     <React.Fragment>
       <h1>Browse Recipes</h1>
@@ -28,7 +26,7 @@ const BrowseRecipes = () => {
         </thead>
         <tbody>
           {recipes.map((rep) => (
-            <tr>
+            <tr key={rep.recipe_id}>
               <td>
                 <img
                   src={rep.image_url}
