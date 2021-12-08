@@ -26,7 +26,7 @@ const LoginPage = () => {
     await fetch("/auth", {
       method: "GET",
       headers: {
-        Authorization: "Basic " + username + ":" + password,
+        Authorization: "Basic " + btoa(username + ":" + password),
         "Content-Type": "application/json",
       },
       // body: JSON.stringify({ username: username, password: password }),
@@ -36,6 +36,8 @@ const LoginPage = () => {
           window.location.href = "/";
         } else if (resp.status === 401) {
           alert("Invalid Credential");
+        } else {
+          alert("Some error occurred");
         }
       })
       .catch((error) => {

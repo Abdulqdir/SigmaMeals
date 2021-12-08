@@ -4,6 +4,7 @@ import os
 from flask import Flask, request, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from module import *
+import random
 
 # create flask instance
 app = Flask(__name__, static_folder='../client/build')
@@ -18,13 +19,14 @@ db = SQLAlchemy(app)
 @app.route('/create_user', methods=['post'])
 def create_user():
     req = request.json
+    user_id = random.getrandbits(12)
     first_name = req.get('first_name')
     last_name = req.get('last_name')
     email = req.get('email')
     user_name = req.get('user_name')
     password = req.get('password')
     db.engine.execute(
-        'INSERT INTO USER VALUES(\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')'.format(first_name, last_name, email, user_name, password)).first()
+        'INSERT INTO USERS VALUES(\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')'.format(user_id, first_name, last_name, email, user_name, password)).first()
 
     # result = USER(user_id=user_id, first_name=first_name, last_name=last_name,
     #                email=email, user_name=user_name, password=password)
@@ -34,11 +36,11 @@ def create_user():
         'SELECT username FROM USER WHERE USER.username = \'{}\' '.format(user_name)).first()
 
     if result is None:
-        return jsonify({"error": "User not added"}), 200
+        return jsonify({"error": "User not added"}), 401
     else:
         return {
             "token": "super_secret_token"
-        }
+        }, 200
 
 # add user to the database
 
@@ -48,10 +50,16 @@ def login():
     # req = request.json
     # user_name = req.get('username')
     # password = req.get('password')
-    auth = request.headers.get('Authorization')
-    auth = auth.split(" ")
-    user_name = auth[1].split(":")[0]
-    password = auth[1].split(":")[1]
+    # auth = request.headers.get('Authorization')
+    auth = request.authorization
+    # print(request.authorization)
+    # print(base64.b64decode(auth))
+    # auth = auth.split(" ")
+    # user_name = auth[1].split(":")[0]
+    user_name = auth.username
+    # password = auth[1].split(":")[1]
+    password = auth.password
+    print(user_name, password)
 
     #result = USER.query.filter_by(username=user_name, password = password).first()
     result = db.engine.execute(
@@ -63,7 +71,7 @@ def login():
     else:
         return {
             "token": "super_secret_token"
-        }
+        }, 200
 
 # add user to the database
 
@@ -76,7 +84,6 @@ def browse_recipe():
 
     if result is None:
         return jsonify({"error": "unsuccessful query"}), 401
-        # return "user doesn't exist"
     else:
         return jsonify({'result': [dict(row) for row in result]})
 
