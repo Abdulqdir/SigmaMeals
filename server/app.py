@@ -30,44 +30,32 @@ def create_user():
         user = db.engine.execute(
         'SELECT username FROM USERS WHERE USERS.user_id = \'{}\' AND USERS.firstname = \'{}\' AND USERS.username = \'{}\' '.format(user_id, first_name,user_name)).first()
         if user is None:
-            return {"user": "not added"}
+            return {"user": "not added"},401
         else:
             return {"user_name":str(user)} 
     else:
         return {"user" :'User exists'}
 
-# add user to the database
-
-
+# check if you user exists
 @app.route("/auth", methods=['GET'])
 def login():
-    # req = request.json
-    # user_name = req.get('username')
-    # password = req.get('password')
-    # auth = request.headers.get('Authorization')
-    auth = request.authorization
-    # print(request.authorization)
-    # print(base64.b64decode(auth))
-    # auth = auth.split(" ")
-    # user_name = auth[1].split(":")[0]
-    user_name = auth.username
-    # password = auth[1].split(":")[1]
-    password = auth.password
-    print(user_name, password)
 
+    auth = request.authorization
+    user_name = auth.username
+    password = auth.password
     #result = USERS.query.filter_by(username=user_name, password = password).first()
     result = db.engine.execute(
         'SELECT username, password FROM USERS WHERE USERS.username = \'{}\' AND USERS.password = \'{}\''.format(user_name, password)).first()
 
     if result is None:
-        return {"error": "Unauthorized"}
+        return {"error": "Unauthorized"}, 401
         # return "user doesn't exist"
     else:
         return {
             "token": "super_secret_token"
         }
 
-# add user to the database
+# return all recipes
 @app.route("/Browse", methods=['GET'])
 def browse_recipe():
 
@@ -75,7 +63,7 @@ def browse_recipe():
         'SELECT * FROM RECIPE').all()
 
     if result is None:
-        return {"error": "unsuccessful query"}
+        return {"error": "unsuccessful query"},401
     else:
         recipe_dict = {}
         for i in  result:
@@ -83,6 +71,36 @@ def browse_recipe():
             recipe_dict[rec_dic['recipe_id']] = rec_dic
         return {"recipe":recipe_dict}
 
+# drop down selections
+@app.route("/Browse_search", methods=['GET'])
+def browse_search():
+    req = request.json
+    response = req.get("filter")
+    result = []
+    if response == 'cost_decending_order':
+        result = db.engine.execute(
+            'SELECT * FROM RECIPE ORDER BY recipe_total_cost DESC').all()
+    elif response == 'cost_ascending_order':
+        result = db.engine.execute(
+            'SELECT * FROM RECIPE ORDER BY recipe_total_cost ASC').all()
+    elif response == 'rating':
+        result = db.engine.execute(
+            '''SELECT R.recipe_title AS "Recipe Name",
+                R.recipe_description AS "Description",
+                R.prep_time AS "Prep Time",
+                R.recipe_total_cost AS "Cost",
+                RA.rating AS "Rating"
+                FROM RECIPE R,
+                RATING RA,
+                MEAL_TYPE M
+                WHERE  R.recipe_id = RA.recipe_id
+                AND R.meal_id = M.meal_id 
+                ORDER BY R.recipe_total_cost ASC,RA.rating DESC''').all()
+    if result is None:
+        return {"error": "unsuccessful query"},401
+    else:
+        
+        return {'result': [dict(row) for row in result]}
 
 # Serve React App
 @app.route('/', defaults={'path': ''})
@@ -96,4 +114,3 @@ def serve(path):
 
 if __name__ == '__main__':
     app.run(debug=True)
-    #print(jsonify(username="data",email="error",id="id"))
