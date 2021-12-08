@@ -1,1 +1,1 @@
-web: cd client; npm instal; npm run build; cd ..; cd server; python app.py
+web: cd client; npm install; npm run build; cd ..; cd server; python app.py
