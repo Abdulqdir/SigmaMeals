@@ -43,7 +43,7 @@ const LoginPage = () => {
       .then((data) => {
         console.log(data);
         //alert('idk');
-        //window.location.href = '/';
+        window.location.href = '/';
       })
       .catch((error) => {
         console.log(error);
