@@ -78,7 +78,7 @@ def browse_recipe():
         return jsonify({"error": "unsuccessful query"}), 401
         # return "user doesn't exist"
     else:
-        return jsonify(result)
+        return jsonify({'result': [dict(row) for row in result]})
 
 
 # Serve React App
