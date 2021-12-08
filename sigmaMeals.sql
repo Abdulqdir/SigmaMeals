@@ -711,7 +711,7 @@ WHERE recipe_total_cost < (
   );
 /*
  Query 4
- 
+ browse recipe return recipes ordered by rating?
  Purpose: Get the ratings of all the recipes
  Summary: Here we get the ratings of all the recipes regardless if we have the ratings or
  not in the rating table for a specific recipe
@@ -723,7 +723,7 @@ FROM RECIPE
   FULL OUTER JOIN RATING ON RECIPE.recipe_id = RATING.recipe_id;
 /*
  Query 5
- 
+ use this to get top recipes in the mealplanner page?
  Purpose: Find recipes with 4 and 5 stars that cost under a certain price, in this case $10.
  Summary:
  --The expected result for recipes with 4 and 5 stars that cost less than $10 should be:
@@ -772,7 +772,7 @@ FROM USERS,
 WHERE USERS.user_id = C.user_id;
 /*
  Query 7
- 
+ change it to cheapest recipe
  Purpose: Get the most costly recipe with its title, cost, prep time and ratings.
  Summary: Here we are getting the info of the most expensive recipe in the database
  
@@ -790,7 +790,7 @@ WHERE RECIPE.recipe_id = RATING.recipe_id
   );
 /*
  Query 8
- 
+ add this to browse recipe page: get recipes by admin
  Purpose: To get the recipes which are posted by the users and their full name (non-admin users) and order them by the first name.
  Summary: In this query we get all the recipes which are posted by user's which are not admin
  
@@ -805,7 +805,7 @@ WHERE created_user_id = user_id
 ORDER BY firstname;
 /*
  Query 9
- 
+ Search by Meal_type: meal planner
  Purpose: To get the recipe info for all the main courses.
  Summary: Here the query will get the recipe info of all the recipes which are of meal type which start with "Main"
  
