@@ -1,5 +1,4 @@
 
-from flask import Flask, request, jsonify, json
 import os
 from flask import Flask, request, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
@@ -19,28 +18,25 @@ db = SQLAlchemy(app)
 @app.route('/create_user', methods=['post'])
 def create_user():
     req = request.json
-    user_id = random.getrandbits(12)
+    user_id = random.getrandbits(18)
     first_name = req.get('first_name')
     last_name = req.get('last_name')
     email = req.get('email')
     user_name = req.get('user_name')
     password = req.get('password')
-    db.engine.execute(
-        'INSERT INTO USERS VALUES(\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')'.format(user_id, first_name, last_name, email, user_name, password)).first()
-
-    # result = USER(user_id=user_id, first_name=first_name, last_name=last_name,
-    #                email=email, user_name=user_name, password=password)
-    # db.session.add(result)
-    # db.session.commit()
     result = db.engine.execute(
-        'SELECT username FROM USER WHERE USER.username = \'{}\' '.format(user_name)).first()
-
+        'SELECT username FROM USERS WHERE USERS.firstname = \'{}\' AND USERS.username = \'{}\' '.format(first_name, user_name)).first()
     if result is None:
-        return jsonify({"error": "User not added"}), 401
+        db.engine.execute(
+            'INSERT INTO USERS VALUES(\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')'.format(user_id, first_name, last_name, user_name, email, password))
+        user = db.engine.execute(
+            'SELECT username FROM USERS WHERE USERS.user_id = \'{}\' AND USERS.firstname = \'{}\' AND USERS.username = \'{}\' '.format(user_id, first_name, user_name)).first()
+        if user is None:
+            return {"user": "not added"}
+        else:
+            return {"user_name": str(user)}
     else:
-        return {
-            "token": "super_secret_token"
-        }, 200
+        return {"user": 'User exists'}
 
 # add user to the database
 
@@ -66,12 +62,12 @@ def login():
         'SELECT username, password FROM USER WHERE USER.username = \'{}\' AND USER.password = \'{}\''.format(user_name, password)).first()
 
     if result is None:
-        return jsonify({"error": "Unauthorized"}), 401
+        return {"error": "Unauthorized"}
         # return "user doesn't exist"
     else:
         return {
             "token": "super_secret_token"
-        }, 200
+        }
 
 # add user to the database
 
@@ -83,7 +79,7 @@ def browse_recipe():
         'SELECT * FROM RECIPE').all()
 
     if result is None:
-        return jsonify({"error": "unsuccessful query"}), 401
+        return {"error": "unsuccessful query"}
     else:
         return jsonify({'result': [dict(row) for row in result]})
 
