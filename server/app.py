@@ -96,8 +96,24 @@ def browse_recipe():
 
 
 @app.route("/mealtype", methods=['GET'])
-def get_recipes_meal_type():
-    arg = request.args.get('mealtype')
+def meal_type_filter():
+    param1 = request.args.get('param1')
+    param2 = request.args.get('param2')
+    param3 = request.args.get('param3')
+    param4 = request.args.get('param4')
+
+    if param1 is None and param2 is None and param3 is None and param4 is None:
+        return jsonify({"error": "unsuccessful query"}), 401
+
+    result = ""
+    if param1 is not None: result += get_recipes_meal_type(param1)
+    if param2 is not None: result += get_recipes_meal_type(param2)
+    if param3 is not None: result += get_recipes_meal_type(param3)
+    if param4 is not None: result += get_recipes_meal_type(param4)
+    return result, 200
+
+    
+def get_recipes_meal_type(meal_type):
     query_result = db.engine.execute(
         '''
         SELECT R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, M.type_name, RA.rating
@@ -105,12 +121,8 @@ def get_recipes_meal_type():
         WHERE M.type_name = '{}'
         AND R.meal_id = M.meal_id
         AND R.recipe_id = RA.recipe_id
-           '''.format(arg)).all()
-
-    if query_result is None:
-        return jsonify({"error": "unsuccessful query"}), 401
-    else:
-        return json.dumps([dict(r) for r in query_result]), 200
+           '''.format(meal_type)).all()
+    return json.dumps([dict(r) for r in query_result])
 
 
 @app.route("/search", methods=['GET'])
