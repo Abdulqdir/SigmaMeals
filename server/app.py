@@ -113,16 +113,14 @@ def get_recipes_meal_type():
         return json.dumps([dict(r) for r in query_result]), 200
 
 
-#@app.route("/search", methods=['GET'])
+@app.route("/search", methods=['GET'])
 def search():
-  #  arg = request.args.get('recipe_name')
-    arg = "%chicken%"
-    print("----------------------------------")
+    arg = request.args.get('recipe_name')
     query_result = db.engine.execute(
         '''
         SELECT *
         FROM RECIPE
-        WHERE recipe_title LIKE '{}'
+        WHERE LOWER(recipe_title) LIKE LOWER('%%{}%%')
         '''.format(arg)).all()
     print(query_result)
 
@@ -130,6 +128,8 @@ def search():
         return jsonify({"error": "unsuccessful query"}), 401
     else:
         return json.dumps([dict(r) for r in query_result]), 200
+
+
 
 # Serve React App
 @app.route('/', defaults={'path': ''})
@@ -142,6 +142,5 @@ def serve(path):
 
 
 if __name__ == '__main__':
-    #app.run(debug=True)
-    search()
+    app.run(debug=True)
     #print(jsonify(username="data",email="error",id="id"))
