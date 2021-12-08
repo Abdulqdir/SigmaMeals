@@ -4,7 +4,7 @@
   "description": "recipe website that utilises javaScript,python and SQL to host budget oriented recipes for students",
   "main": "index.js",
   "scripts": {
-    "start": "cd client && pwd && npm install && npm run build"
+    "start": ""
   },
   "repository": {
     "type": "git",
