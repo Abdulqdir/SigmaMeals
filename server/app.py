@@ -45,7 +45,7 @@ def create_user():
 # add user to the database
 
 
-@app.route("/login", methods=['GET'])
+@app.route("/auth", methods=['GET'])
 def login():
     # req = request.json
     # user_name = req.get('username')
