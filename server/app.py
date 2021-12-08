@@ -1,5 +1,5 @@
 
-from flask import Flask, request, jsonify,json
+from flask import Flask, request, jsonify, json
 import os
 from flask import Flask, request, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
@@ -14,7 +14,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://gtbbojbdpfuvny:d763d0bf441
 db = SQLAlchemy(app)
 
 # add user to the database
-@app.route("/create_user", methods = ['post'])
+
+
+@app.route('/create_user', methods=['post'])
 def create_user():
     req = request.json
     user_id = random.getrandbits(12)
@@ -41,11 +43,20 @@ def create_user():
         }, 200
 
 # add user to the database
-@app.route("/login", methods = ['POST'])
+
+
+@app.route("/login", methods=['GET'])
 def login():
-    req = request.json
-    user_name = req.get('username')
-    password = req.get('password')
+    # req = request.json
+    # user_name = req.get('username')
+    # password = req.get('password')
+    auth = request.headers.get('Authorization')
+    auth = auth.split(" ")
+    user_name = auth[1].split(":")[0]
+    password = auth[1].split(":")[1]
+    print(user_name, password)
+
+    #result = USERS.query.filter_by(username=user_name, password = password).first()
     result = db.engine.execute(
         'SELECT username, password FROM USERS WHERE USERS.username = \'{}\' AND USERS.password = \'{}\''.format(user_name, password)).first()
 
@@ -58,9 +69,11 @@ def login():
         }, 200
 
 # add user to the database
-@app.route("/Browse", methods = ['GET'])
+
+
+@app.route("/Browse", methods=['GET'])
 def browse_recipe():
-    
+
     result = db.engine.execute(
         'SELECT * FROM RECIPE').all()
 
@@ -82,6 +95,7 @@ def serve(path):
         return send_from_directory(app.static_folder, path)
     else:
         return send_from_directory(app.static_folder, 'index.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
