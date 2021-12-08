@@ -5,7 +5,6 @@ from flask import Flask, request, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from module import *
 import random
-import base64
 
 # create flask instance
 app = Flask(__name__, static_folder='../client/build')
