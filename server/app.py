@@ -43,7 +43,7 @@ def create_user():
 # add user to the database
 
 
-@app.route("/login", methods=['GET'])
+@app.route("/auth", methods=['GET'])
 def login():
     # req = request.json
     # user_name = req.get('username')
@@ -93,10 +93,10 @@ def serve(path):
 
 
 if __name__ == '__main__':
-    # app.run(debug=True)
     result = db.engine.execute(
         'SELECT * FROM RECIPE').all()
     string = ""
     for i in result:
         string = string + str(dict(i))
     print(string)
+    app.run(debug=True)
