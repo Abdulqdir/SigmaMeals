@@ -95,6 +95,7 @@ def serve(path):
 
 
 if __name__ == '__main__':
+<<<<<<< HEAD
     app.run(debug=True)
     result = db.engine.execute(
         'SELECT * FROM RECIPE').all()
@@ -102,3 +103,9 @@ if __name__ == '__main__':
     for i in result:
         string = string + str(dict(i))
     print(string)
+=======
+    port = int(os.environ.get("PORT", 5000))
+    print("Running on port "+str(port)+"...")
+    app.run(debug=True, host='0.0.0.0', port=port)
+    #print(jsonify(username="data",email="error",id="id"))
+>>>>>>> origin/master
