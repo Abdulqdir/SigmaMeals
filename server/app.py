@@ -24,14 +24,14 @@ def create_user():
     user_name = req.get('user_name')
     password = req.get('password')
     db.engine.execute(
-        'INSERT INTO USERS VALUES(\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')'.format(first_name, last_name, email, user_name, password)).first()
+        'INSERT INTO USER VALUES(\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')'.format(first_name, last_name, email, user_name, password)).first()
 
-    # result = USERS(user_id=user_id, first_name=first_name, last_name=last_name,
+    # result = USER(user_id=user_id, first_name=first_name, last_name=last_name,
     #                email=email, user_name=user_name, password=password)
     # db.session.add(result)
     # db.session.commit()
     result = db.engine.execute(
-        'SELECT username FROM USERS WHERE USERS.username = \'{}\' '.format(user_name)).first()
+        'SELECT username FROM USER WHERE USER.username = \'{}\' '.format(user_name)).first()
 
     if result is None:
         return jsonify({"error": "User not added"}), 200
@@ -53,9 +53,9 @@ def login():
     user_name = auth[1].split(":")[0]
     password = auth[1].split(":")[1]
 
-    #result = USERS.query.filter_by(username=user_name, password = password).first()
+    #result = USER.query.filter_by(username=user_name, password = password).first()
     result = db.engine.execute(
-        'SELECT username, password FROM USERS WHERE USERS.username = \'{}\' AND USERS.password = \'{}\''.format(user_name, password)).first()
+        'SELECT username, password FROM USER WHERE USER.username = \'{}\' AND USER.password = \'{}\''.format(user_name, password)).first()
 
     if result is None:
         return jsonify({"error": "Unauthorized"}), 401
