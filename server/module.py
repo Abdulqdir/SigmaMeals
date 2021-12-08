@@ -1,3 +1,4 @@
+# Do we need to specify constraints or can we just make an insertion statement
 from app import db
 from datetime import datetime
 class RECIPE(db.Model):
