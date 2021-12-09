@@ -127,3 +127,14 @@ code {
 .button {
   padding-left: 12px;
 }
+
+/* Single Recipe css */
+.single-recipe-container {
+  display: grid;
+  justify-content: center;
+}
+
+.single-recipe-title {
+  font-size: 27px;
+  padding: 10px;
+}
