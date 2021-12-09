@@ -1,7 +1,7 @@
 
 from operator import methodcaller
 import os
-from flask import Flask, request, jsonify, json, send_from_directory
+from flask import Flask, request, json, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import query
 from module import *
@@ -74,7 +74,7 @@ def browse_recipe():
     if result is None:
         return {"error": "unsuccessful query"}, 401
     else:
-        return jsonify({'result': [dict(row) for row in result]})
+        return {'result': [dict(row) for row in result]}
 
 
 @app.route("/mealtype", methods=['GET'])
@@ -85,7 +85,7 @@ def meal_type_filter():
     param4 = request.args.get('param4')
 
     if param1 is None and param2 is None and param3 is None and param4 is None:
-        return jsonify({"error": "unsuccessful query"}), 401
+        return {"error": "unsuccessful query"}, 401
 
     result = ""
     if param1 is not None:
@@ -123,7 +123,7 @@ def search():
     print(query_result)
 
     if query_result is None:
-        return jsonify({"error": "unsuccessful query"}), 401
+        return {"error": "unsuccessful query"}, 401
     else:
         return json.dumps([dict(r) for r in query_result]), 200
 
@@ -137,7 +137,7 @@ def browse_search():
     result = []
     if response == 'cost_decending_order':
         result = db.engine.execute(
-             '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, RA.rating, M.type_name
+            '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, RA.rating, M.type_name
          FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id ORDER BY recipe_total_cost DESC''').all()
     elif response == 'cost_ascending_order':
         result = db.engine.execute(
@@ -157,6 +157,8 @@ def browse_search():
         return {'result': [dict(row) for row in result]}
 
 # return all recipes
+
+
 @app.route("/get_recipe", methods=['GET'])
 def get_recipe():
 
@@ -167,7 +169,7 @@ def get_recipe():
          WHERE R.recipe_id=C.recipe_id AND R.meal_id=M.meal_id AND C.ingredient_id=I.ingredient_id AND R.recipe_id = RA.recipe_id''').all()
 
     if result is None:
-        return {"error": "unsuccessful query"},401
+        return {"error": "unsuccessful query"}, 401
     else:
         return {'result': [dict(row) for row in result]}
 # Serve React App
