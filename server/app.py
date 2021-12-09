@@ -68,7 +68,8 @@ def login():
 def browse_recipe():
 
     result = db.engine.execute(
-        'SELECT *, RATING.rating, MEAL_TYPE.type_name FROM RECIPE, RATING,MEAL_TYPE WHERE RECIPE.recipe_id=RATING.recipe_id AND RECIPE.meal_id=MEAL_TYPE.meal_id').all()
+        '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, R.created_date, R.created_user_id,R.meal_id, RA.rating, M.type_name
+         FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id''').all()
 
     if result is None:
         return {"error": "unsuccessful query"}, 401
@@ -136,20 +137,16 @@ def browse_search():
     result = []
     if response == 'cost_decending_order':
         result = db.engine.execute(
-            'SELECT * FROM RECIPE ORDER BY recipe_total_cost DESC').all()
+             '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, RA.rating, M.type_name
+         FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id ORDER BY recipe_total_cost DESC''').all()
     elif response == 'cost_ascending_order':
         result = db.engine.execute(
-            'SELECT * FROM RECIPE ORDER BY recipe_total_cost ASC').all()
+            '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, RA.rating, M.type_name
+         FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id ORDER BY recipe_total_cost ASC''').all()
     elif response == 'rating':
         result = db.engine.execute(
-            '''SELECT R.recipe_title AS "Recipe Name",
-                R.recipe_description AS "Description",
-                R.prep_time AS "Prep Time",
-                R.recipe_total_cost AS "Cost",
-                RA.rating AS "Rating"
-                FROM RECIPE R,
-                RATING RA,
-                MEAL_TYPE M
+            '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, RA.rating, M.type_name
+                FROM RECIPE R, RATING RA ,MEAL_TYPE M
                 WHERE  R.recipe_id = RA.recipe_id
                 AND R.meal_id = M.meal_id 
                 ORDER BY R.recipe_total_cost ASC,RA.rating DESC''').all()
@@ -159,6 +156,20 @@ def browse_search():
 
         return {'result': [dict(row) for row in result]}
 
+# return all recipes
+@app.route("/get_recipe", methods=['GET'])
+def get_recipe():
+
+    result = db.engine.execute(
+        '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, 
+        R.created_date, R.created_user_id,R.meal_id, M.type_name, C.quantity, C.measurement, I.ing_name, RA.rating, RA.user_id
+         FROM RECIPE R, CONSISTS_OF C, INGREDIENT I,MEAL_TYPE M, RATING RA 
+         WHERE R.recipe_id=C.recipe_id AND R.meal_id=M.meal_id AND C.ingredient_id=I.ingredient_id AND R.recipe_id = RA.recipe_id''').all()
+
+    if result is None:
+        return {"error": "unsuccessful query"},401
+    else:
+        return {'result': [dict(row) for row in result]}
 # Serve React App
 
 
