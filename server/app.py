@@ -60,7 +60,7 @@ def login():
 def browse_recipe():
 
     result = db.engine.execute(
-        '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, RA.rating, M.type_name
+        '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, R.created_date, R.created_user_id,R.meal_id, RA.rating, M.type_name
          FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id''').all()
 
     if result is None:
@@ -94,6 +94,20 @@ def browse_search():
         
         return {'result': [dict(row) for row in result]}
 
+# return all recipes
+@app.route("/get_recipe", methods=['GET'])
+def get_recipe():
+
+    result = db.engine.execute(
+        '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, 
+        R.created_date, R.created_user_id,R.meal_id, M.type_name, C.quantity, C.measurement, I.ing_name, RA.rating, RA.user_id
+         FROM RECIPE R, CONSISTS_OF C, INGREDIENT I,MEAL_TYPE M, RATING RA 
+         WHERE R.recipe_id=C.recipe_id AND R.meal_id=M.meal_id AND C.ingredient_id=I.ingredient_id AND R.recipe_id = RA.recipe_id''').all()
+
+    if result is None:
+        return {"error": "unsuccessful query"},401
+    else:
+        return {'result': [dict(row) for row in result]}
 # Serve React App
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
