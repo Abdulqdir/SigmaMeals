@@ -1,7 +1,7 @@
-import React from "react";
-import { Button } from "react-bootstrap";
-import "../App.css";
-import foodImage from "../components/food.png";
+import React from 'react';
+import { Button } from 'react-bootstrap';
+import '../App.css';
+import foodImage from '../components/food.png';
 
 const LandingPage = () => {
   return (

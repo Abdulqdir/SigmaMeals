@@ -1,14 +1,14 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { Table } from "react-bootstrap";
-import "../App.css";
-import parser from "html-react-parser";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { Table } from 'react-bootstrap';
+import '../App.css';
+import parser from 'html-react-parser';
 
 const BrowseRecipes = () => {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    fetch("/Browse")
+    fetch('/Browse')
       .then((resp) => resp.json())
       .then((data) => setRecipes(data.result));
   }, []);
@@ -16,7 +16,7 @@ const BrowseRecipes = () => {
   // console.log(recipes);
 
   const openInNewtabSecure = (url) => {
-    const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+    const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
     if (newWindow) newWindow.opener = null;
   };
 

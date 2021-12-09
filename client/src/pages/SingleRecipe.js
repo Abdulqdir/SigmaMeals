@@ -1,12 +1,12 @@
-import { React, useState, useEffect } from "react";
-import "../App.css";
+import { React, useState, useEffect } from 'react';
+import '../App.css';
 
 const SingleRecipe = () => {
   const [ingredients, setIngredients] = useState([]);
   const [recipe, setRecipe] = useState({});
 
   const queryParams = new URLSearchParams(window.location.search);
-  const id = queryParams.get("id");
+  const id = queryParams.get('id');
 
   useEffect(() => {
     fetch(`/get_recipe?id=${id}`)
@@ -27,7 +27,7 @@ const SingleRecipe = () => {
       <div className="recipe-info-container">
         <img className="single-recipe-image" src={recipe.image_url} alt="" />
         <div className="ingredients-container">
-          <div style={{ paddingBottom: "20px" }}>
+          <div style={{ paddingBottom: '20px' }}>
             <span className="ingredient-text">
               Preparation time: {recipe.prep_time} minutes
             </span>
@@ -45,7 +45,7 @@ const SingleRecipe = () => {
           <div className="instructions-container">
             <span className="ingredient-text">Instructions:</span>
             {String(recipe.instructions)
-              .split("\n")
+              .split('\n')
               .map((str) => (
                 <p>{str}</p>
               ))}
