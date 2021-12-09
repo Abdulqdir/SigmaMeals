@@ -114,7 +114,7 @@ def meal_planner():
     result = db.engine.execute(
     '''SELECT * FROM RECIPE, MEAL_TYPE
        WHERE recipe_total_cost <= {}
-       AND type_name = '{}'
+       AND type_name = '{}' AND RECIPE.meal_id = MEAL_TYPE.meal_id
        ORDER BY recipe_total_cost
     '''.format(cost, meal_type)).all()
     recipe_dict = [dict(row) for row in result]
