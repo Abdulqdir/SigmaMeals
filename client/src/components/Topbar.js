@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Navbar } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
-import "./Topbar.css";
+import "../App.css";
 import logo from "./logo.png";
 
 export default function Topbar() {
