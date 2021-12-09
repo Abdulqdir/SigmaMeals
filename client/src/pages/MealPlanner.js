@@ -6,7 +6,7 @@ import parser from 'html-react-parser';
 
 const MealPlanner = () => {
   const [recipes, setRecipes] = useState([]);
-  const [mealType, setMealType] = useState('breakfast');
+  const [mealType, setMealType] = useState('Breakfast');
   const [price, setPrice] = useState(0);
 
   const openInNewtabSecure = (url) => {
@@ -15,10 +15,15 @@ const MealPlanner = () => {
   };
 
   const sendRequest = (mealType, price) => {
+    //console.log(mealType, price);
     fetch(`/planner?cost=${price}&mealtype=${mealType}`)
-      .then((response) => response.json())
-      .then((data) => setRecipes(data.result))
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.result);
+        setRecipes(data.result);
+      })
       .catch((err) => console.error(err));
+    //console.log('afafasfadfasdfasdf');
     const arr = [
       {
         recipe_id: 1,
@@ -67,10 +72,10 @@ const MealPlanner = () => {
               value={mealType}
               onChange={(e) => setMealType(e.target.value)}
             >
-              <option value="breakfast">Breakfast</option>
-              <option value="lunch">Lunch</option>
-              <option value="dinner">Dinner</option>
-              <option value="drink">Drink</option>
+              <option value="Breakfast">Breakfast</option>
+              <option value="Lunch">Lunch</option>
+              <option value="Dinner">Dinner</option>
+              <option value="Drink">Drink</option>
             </Form.Select>
           </FloatingLabel>
         </Col>

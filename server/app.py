@@ -1,7 +1,7 @@
 
 from operator import methodcaller
 import os
-from flask import Flask, request, json, send_from_directory
+from flask import Flask, request, json, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import query
 from module import *
@@ -99,6 +99,23 @@ def meal_type_filter():
     return result, 200
 
 
+@app.route("/planner", methods=['GET'])
+def meal_planner():
+    cost = request.args.get('cost')
+    meal_type = request.args.get('mealtype')
+    
+    if cost is None or meal_type is None:
+        return {"error": "unsuccessful query"}, 401
+
+    result = db.engine.execute(
+    '''SELECT * FROM RECIPE, MEAL_TYPE
+       WHERE recipe_total_cost <= {}
+       AND type_name = '{}'
+    '''.format(cost, meal_type)).all()
+    return jsonify({'result': [dict(row) for row in result]}), 200
+
+
+    
 def get_recipes_meal_type(meal_type):
     query_result = db.engine.execute(
         '''
@@ -188,4 +205,5 @@ if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     print("Running on port "+str(port)+"...")
     app.run(debug=True, host='0.0.0.0', port=port)
-    # print(jsonify(username="data",email="error",id="id"))
+   # print(jsonify(username="data",email="error",id="id"))
+#    meal_planner()
