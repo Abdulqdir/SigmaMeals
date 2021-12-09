@@ -1,7 +1,9 @@
 
+from operator import methodcaller
 import os
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, json, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import query
 from module import *
 import random
 
@@ -26,15 +28,15 @@ def create_user():
         'SELECT username FROM USERS WHERE USERS.firstname = \'{}\' AND USERS.username = \'{}\' '.format(first_name, user_name)).first()
     if result is None:
         db.engine.execute(
-        'INSERT INTO USERS VALUES(\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')'.format(user_id,first_name,last_name,user_name,email, password))
+            'INSERT INTO USERS VALUES(\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')'.format(user_id, first_name, last_name, user_name, email, password))
         user = db.engine.execute(
-        'SELECT username FROM USERS WHERE USERS.user_id = \'{}\' AND USERS.firstname = \'{}\' AND USERS.username = \'{}\' '.format(user_id, first_name,user_name)).first()
+            'SELECT username FROM USERS WHERE USERS.user_id = \'{}\' AND USERS.firstname = \'{}\' AND USERS.username = \'{}\' '.format(user_id, first_name, user_name)).first()
         if user is None:
-            return {"user": "not added"},401
+            return {"user": "not added"}, 401
         else:
-            return {"user_name":str(user)} 
+            return {"user_name": str(user)}
     else:
-        return {"user" :'User exists'}
+        return {"user": 'User exists'}
 
 # check if you user exists
 @app.route("/auth", methods=['GET'])
@@ -64,9 +66,61 @@ def browse_recipe():
          FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id''').all()
 
     if result is None:
-        return {"error": "unsuccessful query"},401
+        return {"error": "unsuccessful query"}, 401
     else:
         return {'result': [dict(row) for row in result]}
+
+# meal_type filter
+@app.route("/mealtype", methods=['GET'])
+def meal_type_filter():
+    param1 = request.args.get('param1')
+    param2 = request.args.get('param2')
+    param3 = request.args.get('param3')
+    param4 = request.args.get('param4')
+
+    if param1 is None and param2 is None and param3 is None and param4 is None:
+        return {"error": "unsuccessful query"}, 401
+
+    result = ""
+    if param1 is not None:
+        result += get_recipes_meal_type(param1)
+    if param2 is not None:
+        result += get_recipes_meal_type(param2)
+    if param3 is not None:
+        result += get_recipes_meal_type(param3)
+    if param4 is not None:
+        result += get_recipes_meal_type(param4)
+    return result, 200
+
+# get specific meal
+def get_recipes_meal_type(meal_type):
+    query_result = db.engine.execute(
+        '''
+        SELECT R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, M.type_name, RA.rating
+        FROM MEAL_TYPE M, RECIPE R, RATING RA
+        WHERE M.type_name = '{}'
+        AND R.meal_id = M.meal_id
+        AND R.recipe_id = RA.recipe_id
+           '''.format(meal_type)).all()
+    return json.dumps([dict(r) for r in query_result])
+
+# search through the database
+@app.route("/search", methods=['GET'])
+def search():
+    arg = request.args.get('recipe_name')
+    query_result = db.engine.execute(
+        '''
+        SELECT *
+        FROM RECIPE
+        WHERE LOWER(recipe_title) LIKE LOWER('%%{}%%')
+        '''.format(arg)).all()
+    print(query_result)
+
+    if query_result is None:
+        return {"error": "unsuccessful query"}, 401
+    else:
+        return json.dumps([dict(r) for r in query_result]), 200
+
 # drop down selections
 @app.route("/Browse_search", methods=['GET'])
 def browse_search():
@@ -87,9 +141,9 @@ def browse_search():
          FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id 
                 ORDER BY R.recipe_total_cost ASC,RA.rating DESC''').all()
     if result is None:
-        return {"error": "unsuccessful query"},401
+        return {"error": "unsuccessful query"}, 401
     else:
-        
+
         return {'result': [dict(row) for row in result]}
 
 # return all recipes
@@ -103,9 +157,10 @@ def get_recipe():
          WHERE R.recipe_id=C.recipe_id AND R.meal_id=M.meal_id AND C.ingredient_id=I.ingredient_id AND R.recipe_id = RA.recipe_id''').all()
 
     if result is None:
-        return {"error": "unsuccessful query"},401
+        return {"error": "unsuccessful query"}, 401
     else:
         return {'result': [dict(row) for row in result]}
+
 # Serve React App
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
@@ -117,4 +172,6 @@ def serve(path):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    print("Running on port "+str(port)+"...")
+    app.run(debug=True, host='0.0.0.0', port=port)

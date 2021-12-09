@@ -1,28 +1,13 @@
-.topbar {
-  width: 100%;
-  height: 50px;
-  background-color: white;
-  position: sticky;
-  top: 0;
-  z-index: 999;
+/* .navbar-nav {
+  padding-left: 10.5rem;
+} */
+
+.navlink-wrapper {
+  padding-left: 3.5rem;
+  padding-right: 3.5rem;
 }
 
-.topbarWrapper {
-  height: 100%;
-  padding: 0px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.logo {
-  font-weight: bold;
-  font-size: 30px;
-  color: black;
-  cursor: pointer;
-}
-
-.topRight {
-  display: flex;
-  align-items: center;
+.sigmameals-logo {
+  width: auto;
+  height: 90px;
 }

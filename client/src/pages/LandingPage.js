@@ -1,8 +1,9 @@
 import React from "react";
+import "./LandingPage.css";
 
 const LandingPage = () => {
   return (
-    <div style={{ padding: "20px" }}>
+    <div className="landing-wrapper">
       <h1>Find Better Food</h1>
       <br />
       <p>Your not eating well cuz your poor and sad</p>
