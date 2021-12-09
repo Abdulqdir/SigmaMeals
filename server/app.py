@@ -106,18 +106,27 @@ def meal_type_filter():
 
 @app.route("/planner", methods=['GET'])
 def meal_planner():
-    cost = request.args.get('cost')
+    cost = float(request.args.get('cost'))
     meal_type = request.args.get('mealtype')
-    
     if cost is None or meal_type is None:
-        return {"error": "unsuccessful query"}, 401
+       return {"error": "unsuccessful query"}, 401
 
     result = db.engine.execute(
     '''SELECT * FROM RECIPE, MEAL_TYPE
        WHERE recipe_total_cost <= {}
        AND type_name = '{}'
+       ORDER BY recipe_total_cost
     '''.format(cost, meal_type)).all()
-    return jsonify({'result': [dict(row) for row in result]}), 200
+    recipe_dict = [dict(row) for row in result]
+    final_result = []
+    accumulated_cost = 0
+    for recipe in recipe_dict:
+        if len(final_result) >= 7: break
+        if not(accumulated_cost + recipe['recipe_total_cost'] > cost):
+            final_result.append(recipe)
+            accumulated_cost += recipe['recipe_total_cost']
+
+    return jsonify({'result': final_result}), 200
 
 
     
@@ -166,5 +175,4 @@ if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     print("Running on port "+str(port)+"...")
     app.run(debug=True, host='0.0.0.0', port=port)
-   # print(jsonify(username="data",email="error",id="id"))
-#    meal_planner()
+    # meal_planner()
