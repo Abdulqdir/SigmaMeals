@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
-import "./BrowseRecipes.css";
+import "../App.css";
 import parser from "html-react-parser";
 
 const BrowseRecipes = () => {
