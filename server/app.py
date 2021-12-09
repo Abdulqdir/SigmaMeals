@@ -104,15 +104,20 @@ def meal_type_filter():
     return result, 200
 
 
-@app.route("/mealplanner", methods=['GET'])
+@app.route("/planner", methods=['GET'])
 def meal_planner():
     cost = request.args.get('cost')
     meal_type = request.args.get('mealtype')
-
+    
     if cost is None or meal_type is None:
         return {"error": "unsuccessful query"}, 401
-    else:
-        return str(cost) + str(meal_type), 200
+
+    result = db.engine.execute(
+    '''SELECT * FROM RECIPE, MEAL_TYPE
+       WHERE recipe_total_cost <= {}
+       AND type_name = '{}'
+    '''.format(cost, meal_type)).all()
+    return jsonify({'result': [dict(row) for row in result]}), 200
 
 
     
@@ -161,4 +166,5 @@ if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     print("Running on port "+str(port)+"...")
     app.run(debug=True, host='0.0.0.0', port=port)
-    # print(jsonify(username="data",email="error",id="id"))
+   # print(jsonify(username="data",email="error",id="id"))
+#    meal_planner()
