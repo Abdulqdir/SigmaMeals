@@ -68,7 +68,7 @@ def login():
 def browse_recipe():
 
     result = db.engine.execute(
-        'SELECT * FROM RECIPE').all()
+        'SELECT *, RATING.rating, MEAL_TYPE.type_name FROM RECIPE, RATING,MEAL_TYPE WHERE RECIPE.recipe_id=RATING.recipe_id AND RECIPE.meal_id=MEAL_TYPE.meal_id').all()
 
     if result is None:
         return {"error": "unsuccessful query"}, 401
