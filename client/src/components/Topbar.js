@@ -1,32 +1,37 @@
 import React from "react";
-import { Container, Navbar } from "react-bootstrap";
+import { Container, Navbar, Nav } from "react-bootstrap";
 import "./Topbar.css";
+import logo from "./logo.png";
 
 export default function Topbar() {
   return (
-    <Navbar>
+    <Navbar bg="light" variant="light">
       <Container>
         <Navbar.Brand href="/">
-          <img src="logo.png" alt="SigmaMeals Logo" />
+          <img
+            src={logo}
+            alt="SigmaMeals Logo"
+            style={{ width: "auto", height: "110px" }}
+          />
         </Navbar.Brand>
+        <Nav className="me-auto">
+          <div className="navlink-wrapper">
+            <Nav.Link href="/browseRecipes">Browse recipes</Nav.Link>
+          </div>
+          <div className="navlink-wrapper">
+            <Nav.Link href="/mealPlanner">Meal planner</Nav.Link>
+          </div>
+          <div className="navlink-wrapper">
+            <Nav.Link href="/aboutUs">About us</Nav.Link>
+          </div>
+        </Nav>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
-            Signed in as: <a href="/login">username</a>
+            Join now: <a href="/login">Sign up</a>
           </Navbar.Text>
         </Navbar.Collapse>
       </Container>
     </Navbar>
-
-    // {/* <div className="topbar">
-    //   <div className="topbarWrapper">
-    //     <div className="topLeft">
-    //       <span className="logo">Logo Here</span>
-    //     </div>
-    //     <div className="topRight">
-    //       <span className="account">User Account here</span>
-    //     </div>
-    //   </div>
-    // </div> */}
   );
 }

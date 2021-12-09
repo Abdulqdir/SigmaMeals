@@ -10,17 +10,6 @@ ReactDOM.render(
   <React.StrictMode>
     {/* <App /> */}
     <Topbar />
-    {/* REMOVE THIS WHEN U HAVE A PROPER NAVBAR  */}
-    <div style={{ display: "flex" }}>
-      <a href="/" style={{ padding: "20px" }}>
-        <p>Home</p>
-      </a>
-      <a href="/browseRecipes" style={{ padding: "20px" }}>
-        <p>Browse Recipes</p>
-      </a>
-    </div>
-    {/* REMOVE THIS WHEN U HAVE A PROPER NAVBAR  */}
-
     <Router />
   </React.StrictMode>,
   document.getElementById("root")

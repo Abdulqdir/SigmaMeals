@@ -1,6 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
+import "./BrowseRecipes.css";
+import parser from "html-react-parser";
 
 const BrowseRecipes = () => {
   const [recipes, setRecipes] = useState([]);
@@ -12,37 +14,37 @@ const BrowseRecipes = () => {
   }, []);
 
   return (
-    <React.Fragment>
-      <h1>Browse Recipes</h1>
+    <div className="browse-recipes-content">
       <Table striped bordered hover size="sm" variant="dark">
         <thead>
           <tr>
-            <th> </th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Instruction</th>
+            <th>Recipe</th>
             <th>Cost</th>
+            <th>Description</th>
           </tr>
         </thead>
         <tbody>
           {recipes.map((rep) => (
-            <tr key={rep.recipe_id}>
+            <tr key={rep.recipe_id} onClick={() => console.log("test")}>
               <td>
-                <img
-                  src={rep.image_url}
-                  alt=""
-                  style={{ width: "auto", height: "240px" }}
-                ></img>
+                <div className="recipe-container">
+                  <span className="recipe-title">{rep.recipe_title}</span>
+                  <img
+                    className="recipe-image"
+                    src={rep.image_url}
+                    alt=""
+                  ></img>
+                </div>
               </td>
-              <td>{rep.recipe_title}</td>
-              <td>{rep.recipe_description}</td>
-              <td>{rep.instructions}</td>
-              <td>${rep.recipe_total_cost}</td>
+              <td className="recipe-cost">${rep.recipe_total_cost}</td>
+              <td className="recipe-description">
+                {parser(rep.recipe_description)}
+              </td>
             </tr>
           ))}
         </tbody>
       </Table>
-    </React.Fragment>
+    </div>
   );
 };
 
