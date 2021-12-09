@@ -15,8 +15,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://gtbbojbdpfuvny:d763d0bf441
 db = SQLAlchemy(app)
 
 # add user to the database
-
-
 @app.route('/create_user', methods=['post'])
 def create_user():
     req = request.json
@@ -41,8 +39,6 @@ def create_user():
         return {"user": 'User exists'}
 
 # check if you user exists
-
-
 @app.route("/auth", methods=['GET'])
 def login():
 
@@ -62,8 +58,6 @@ def login():
         }
 
 # return all recipes
-
-
 @app.route("/Browse", methods=['GET'])
 def browse_recipe():
 
@@ -76,7 +70,7 @@ def browse_recipe():
     else:
         return {'result': [dict(row) for row in result]}
 
-
+# meal_type filter
 @app.route("/mealtype", methods=['GET'])
 def meal_type_filter():
     param1 = request.args.get('param1')
@@ -98,7 +92,7 @@ def meal_type_filter():
         result += get_recipes_meal_type(param4)
     return result, 200
 
-
+# get specific meal
 def get_recipes_meal_type(meal_type):
     query_result = db.engine.execute(
         '''
@@ -110,7 +104,7 @@ def get_recipes_meal_type(meal_type):
            '''.format(meal_type)).all()
     return json.dumps([dict(r) for r in query_result])
 
-
+# search through the database
 @app.route("/search", methods=['GET'])
 def search():
     arg = request.args.get('recipe_name')
@@ -128,8 +122,6 @@ def search():
         return json.dumps([dict(r) for r in query_result]), 200
 
 # drop down selections
-
-
 @app.route("/Browse_search", methods=['GET'])
 def browse_search():
     req = request.json
@@ -137,18 +129,16 @@ def browse_search():
     result = []
     if response == 'cost_decending_order':
         result = db.engine.execute(
-            '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, RA.rating, M.type_name
+             '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, R.created_date, R.created_user_id,R.meal_id, RA.rating, M.type_name
          FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id ORDER BY recipe_total_cost DESC''').all()
     elif response == 'cost_ascending_order':
         result = db.engine.execute(
-            '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, RA.rating, M.type_name
+            '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, R.created_date, R.created_user_id,R.meal_id, RA.rating, M.type_name
          FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id ORDER BY recipe_total_cost ASC''').all()
     elif response == 'rating':
         result = db.engine.execute(
-            '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, RA.rating, M.type_name
-                FROM RECIPE R, RATING RA ,MEAL_TYPE M
-                WHERE  R.recipe_id = RA.recipe_id
-                AND R.meal_id = M.meal_id 
+            '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, R.created_date, R.created_user_id,R.meal_id, RA.rating, M.type_name
+         FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id 
                 ORDER BY R.recipe_total_cost ASC,RA.rating DESC''').all()
     if result is None:
         return {"error": "unsuccessful query"}, 401
@@ -157,8 +147,6 @@ def browse_search():
         return {'result': [dict(row) for row in result]}
 
 # return all recipes
-
-
 @app.route("/get_recipe", methods=['GET'])
 def get_recipe():
 
@@ -172,9 +160,8 @@ def get_recipe():
         return {"error": "unsuccessful query"}, 401
     else:
         return {'result': [dict(row) for row in result]}
+
 # Serve React App
-
-
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):
@@ -188,4 +175,3 @@ if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     print("Running on port "+str(port)+"...")
     app.run(debug=True, host='0.0.0.0', port=port)
-    # print(jsonify(username="data",email="error",id="id"))
