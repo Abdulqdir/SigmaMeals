@@ -60,17 +60,12 @@ def login():
 def browse_recipe():
 
     result = db.engine.execute(
-        'SELECT * FROM RECIPE').all()
+        'SELECT *, RATING.rating, MEAL_TYPE.type_name FROM RECIPE, RATING,MEAL_TYPE WHERE RECIPE.recipe_id=RATING.recipe_id AND RECIPE.meal_id=MEAL_TYPE.meal_id').all()
 
     if result is None:
         return {"error": "unsuccessful query"},401
     else:
-        recipe_dict = {}
-        for i in  result:
-            rec_dic = dict(i)
-            recipe_dict[rec_dic['recipe_id']] = rec_dic
-        return {"recipe":recipe_dict}
-
+        return {'result': [dict(row) for row in result]}
 # drop down selections
 @app.route("/Browse_search", methods=['GET'])
 def browse_search():
