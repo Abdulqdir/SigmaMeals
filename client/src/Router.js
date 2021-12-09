@@ -1,9 +1,10 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LandingPage from "./pages/LandingPage";
-import LoginPage from "./pages/LoginPage";
-import NotFound from "./pages/NotFound";
-import RegisterPage from "./pages/RegisterPage";
-import BrowseRecipes from "./pages/BrowseRecipes";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import LandingPage from './pages/LandingPage';
+import LoginPage from './pages/LoginPage';
+import NotFound from './pages/NotFound';
+import RegisterPage from './pages/RegisterPage';
+import BrowseRecipes from './pages/BrowseRecipes';
+import MealPlanner from './pages/MealPlanner';
 
 export const Router = () => {
   return (
@@ -13,6 +14,7 @@ export const Router = () => {
         <Route path="/login" exact element={<LoginPage />} />
         <Route path="/register" exact element={<RegisterPage />} />
         <Route path="/browseRecipes" exact element={<BrowseRecipes />} />
+        <Route path="/mealplanner" exact element={<MealPlanner />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
