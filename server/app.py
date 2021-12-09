@@ -75,18 +75,16 @@ def browse_search():
     result = []
     if response == 'cost_decending_order':
         result = db.engine.execute(
-             '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, RA.rating, M.type_name
+             '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, R.created_date, R.created_user_id,R.meal_id, RA.rating, M.type_name
          FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id ORDER BY recipe_total_cost DESC''').all()
     elif response == 'cost_ascending_order':
         result = db.engine.execute(
-            '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, RA.rating, M.type_name
+            '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, R.created_date, R.created_user_id,R.meal_id, RA.rating, M.type_name
          FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id ORDER BY recipe_total_cost ASC''').all()
     elif response == 'rating':
         result = db.engine.execute(
-            '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, RA.rating, M.type_name
-                FROM RECIPE R, RATING RA ,MEAL_TYPE M
-                WHERE  R.recipe_id = RA.recipe_id
-                AND R.meal_id = M.meal_id 
+            '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, R.created_date, R.created_user_id,R.meal_id, RA.rating, M.type_name
+         FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id 
                 ORDER BY R.recipe_total_cost ASC,RA.rating DESC''').all()
     if result is None:
         return {"error": "unsuccessful query"},401
