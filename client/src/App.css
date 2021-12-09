@@ -99,6 +99,31 @@ code {
 }
 
 /* LandingPage css */
+.landing {
+  min-height: 100vh;
+  margin-top: -5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+}
 .landing-wrapper {
-  padding: 20px;
+  width: 90vw;
+  max-width: 1170px;
+  display: flex;
+  align-items: center;
+}
+.landing-details {
+  width: 420px;
+}
+.foodImage {
+  width: auto;
+  height: 300px;
+  margin-left: 20vw;
+  border-radius: 90px;
+}
+.button-container {
+  display: flex;
+}
+.button {
+  padding-left: 12px;
 }
