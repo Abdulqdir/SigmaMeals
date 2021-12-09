@@ -181,16 +181,31 @@ def browse_search():
 
 @app.route("/get_recipe", methods=['GET'])
 def get_recipe():
-    id = request.args.get('id')
-    result = db.engine.execute(
-        '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url,
-        R.created_date, R.created_user_id,R.meal_id, M.type_name, C.quantity, C.measurement, I.ing_name, RA.rating, RA.user_id
-         FROM RECIPE R, CONSISTS_OF C, INGREDIENT I,MEAL_TYPE M, RATING RA
-         WHERE R.recipe_id=\'{}\' AND R.recipe_id=C.recipe_id AND R.meal_id=M.meal_id AND C.ingredient_id=I.ingredient_id AND R.recipe_id = RA.recipe_id'''.format(id)).all()
+    recipe_id = request.args.get('id')
+    query_result = db.engine.execute(
+        '''
+        SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, 
+        R.created_date, R.created_user_id, R.meal_id, M.type_name, RA.rating, RA.user_id
+        FROM RECIPE R, MEAL_TYPE M, RATING RA
+        WHERE R.recipe_id = {} AND R.meal_id=M.meal_id AND R.recipe_id = RA.recipe_id'''.format(recipe_id)
+    ).all()
+
+    recipes = [dict(r) for r in query_result]
+
+    query_result2 = db.engine.execute('''
+    SELECT C.quantity, C.measurement, I.ing_name
+    FROM CONSISTS_OF C, INGREDIENT I
+    WHERE C.recipe_id = {} AND C.ingredient_id=I.ingredient_id
+    '''.format(recipe_id)).all()
+
+    ingredient = [dict(r) for r in query_result2]
+    result = recipes + ingredient
+
     if result is None:
         return {"error": "unsuccessful query"}, 401
     else:
-        return {'result': [dict(row) for row in result]}
+        return {'ingredients': ingredient, 'recipe': recipes}, 200
+
 
 # Serve React App
 
