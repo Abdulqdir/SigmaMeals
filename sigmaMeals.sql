@@ -568,7 +568,7 @@ INSERT INTO RECIPE
 VALUES(
     470214,
     'Chicken Fried Cauliflower Rice',
-    7,
+    2,
     47.84,
     30,
     322,
