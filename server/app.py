@@ -76,6 +76,8 @@ def browse_recipe():
     else:
         return {'result': [dict(row) for row in result]}
 
+# meal_type filter
+
 
 @app.route("/mealtype", methods=['GET'])
 def meal_type_filter():
@@ -98,24 +100,35 @@ def meal_type_filter():
         result += get_recipes_meal_type(param4)
     return result, 200
 
+# get specific meal
+
 
 @app.route("/planner", methods=['GET'])
 def meal_planner():
-    cost = request.args.get('cost')
+    cost = float(request.args.get('cost'))
     meal_type = request.args.get('mealtype')
-    
     if cost is None or meal_type is None:
         return {"error": "unsuccessful query"}, 401
 
     result = db.engine.execute(
-    '''SELECT * FROM RECIPE, MEAL_TYPE
+        '''SELECT * FROM RECIPE, MEAL_TYPE
        WHERE recipe_total_cost <= {}
-       AND type_name = '{}'
+       AND type_name = '{}' AND RECIPE.meal_id = MEAL_TYPE.meal_id
+       ORDER BY recipe_total_cost
     '''.format(cost, meal_type)).all()
-    return jsonify({'result': [dict(row) for row in result]}), 200
+    recipe_dict = [dict(row) for row in result]
+    final_result = []
+    accumulated_cost = 0
+    for recipe in recipe_dict:
+        if len(final_result) >= 7:
+            break
+        if not(accumulated_cost + recipe['recipe_total_cost'] > cost):
+            final_result.append(recipe)
+            accumulated_cost += recipe['recipe_total_cost']
+
+    return jsonify({'result': final_result}), 200
 
 
-    
 def get_recipes_meal_type(meal_type):
     query_result = db.engine.execute(
         '''
@@ -126,6 +139,8 @@ def get_recipes_meal_type(meal_type):
         AND R.recipe_id = RA.recipe_id
            '''.format(meal_type)).all()
     return json.dumps([dict(r) for r in query_result])
+
+# search through the database
 
 
 @app.route("/search", methods=['GET'])
@@ -154,18 +169,16 @@ def browse_search():
     result = []
     if response == 'cost_decending_order':
         result = db.engine.execute(
-            '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, RA.rating, M.type_name
+            '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, R.created_date, R.created_user_id,R.meal_id, RA.rating, M.type_name
          FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id ORDER BY recipe_total_cost DESC''').all()
     elif response == 'cost_ascending_order':
         result = db.engine.execute(
-            '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, RA.rating, M.type_name
+            '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, R.created_date, R.created_user_id,R.meal_id, RA.rating, M.type_name
          FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id ORDER BY recipe_total_cost ASC''').all()
     elif response == 'rating':
         result = db.engine.execute(
-            '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, RA.rating, M.type_name
-                FROM RECIPE R, RATING RA ,MEAL_TYPE M
-                WHERE  R.recipe_id = RA.recipe_id
-                AND R.meal_id = M.meal_id 
+            '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, R.created_date, R.created_user_id,R.meal_id, RA.rating, M.type_name
+         FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id 
                 ORDER BY R.recipe_total_cost ASC,RA.rating DESC''').all()
     if result is None:
         return {"error": "unsuccessful query"}, 401
@@ -178,17 +191,32 @@ def browse_search():
 
 @app.route("/get_recipe", methods=['GET'])
 def get_recipe():
+    recipe_id = request.args.get('id')
+    query_result = db.engine.execute(
+        '''
+        SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, 
+        R.created_date, R.created_user_id, R.meal_id, M.type_name, RA.rating, RA.user_id
+        FROM RECIPE R, MEAL_TYPE M, RATING RA
+        WHERE R.recipe_id = {} AND R.meal_id=M.meal_id AND R.recipe_id = RA.recipe_id'''.format(recipe_id)
+    ).all()
 
-    result = db.engine.execute(
-        '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, 
-        R.created_date, R.created_user_id,R.meal_id, M.type_name, C.quantity, C.measurement, I.ing_name, RA.rating, RA.user_id
-         FROM RECIPE R, CONSISTS_OF C, INGREDIENT I,MEAL_TYPE M, RATING RA 
-         WHERE R.recipe_id=C.recipe_id AND R.meal_id=M.meal_id AND C.ingredient_id=I.ingredient_id AND R.recipe_id = RA.recipe_id''').all()
+    recipes = [dict(r) for r in query_result]
+
+    query_result2 = db.engine.execute('''
+    SELECT C.quantity, C.measurement, I.ing_name
+    FROM CONSISTS_OF C, INGREDIENT I
+    WHERE C.recipe_id = {} AND C.ingredient_id=I.ingredient_id
+    '''.format(recipe_id)).all()
+
+    ingredient = [dict(r) for r in query_result2]
+    result = recipes + ingredient
 
     if result is None:
         return {"error": "unsuccessful query"}, 401
     else:
-        return {'result': [dict(row) for row in result]}
+        return {'ingredients': ingredient, 'recipe': recipes}, 200
+
+
 # Serve React App
 
 
@@ -205,5 +233,4 @@ if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     print("Running on port "+str(port)+"...")
     app.run(debug=True, host='0.0.0.0', port=port)
-   # print(jsonify(username="data",email="error",id="id"))
-#    meal_planner()
+    # meal_planner()
