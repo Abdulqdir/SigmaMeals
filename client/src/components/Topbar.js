@@ -1,5 +1,6 @@
 import React from "react";
-import { Container, Navbar, Nav } from "react-bootstrap";
+import { Container, Navbar } from "react-bootstrap";
+import Nav from "react-bootstrap/Nav";
 import "./Topbar.css";
 import logo from "./logo.png";
 
@@ -8,21 +9,23 @@ export default function Topbar() {
     <Navbar bg="light" variant="light">
       <Container>
         <Navbar.Brand href="/">
-          <img
-            src={logo}
-            alt="SigmaMeals Logo"
-            style={{ width: "auto", height: "110px" }}
-          />
+          <img className="sigmameals-logo" src={logo} alt="SigmaMeals Logo" />
         </Navbar.Brand>
-        <Nav className="me-auto">
+        <Nav variant="tabs">
           <div className="navlink-wrapper">
-            <Nav.Link href="/browseRecipes">Browse recipes</Nav.Link>
+            <Nav.Link eventKey="browseRecipes" href="/browseRecipes">
+              Browse recipes
+            </Nav.Link>
           </div>
           <div className="navlink-wrapper">
-            <Nav.Link href="/mealPlanner">Meal planner</Nav.Link>
+            <Nav.Link href="mealPlanner" eventKey="mealPlanner">
+              Meal planner
+            </Nav.Link>
           </div>
           <div className="navlink-wrapper">
-            <Nav.Link href="/aboutUs">About us</Nav.Link>
+            <Nav.Link href="aboutUs" eventKey="aboutUs">
+              About us
+            </Nav.Link>
           </div>
         </Nav>
         <Navbar.Toggle />

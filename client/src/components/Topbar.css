@@ -1,8 +1,13 @@
-.navbar-nav {
+/* .navbar-nav {
   padding-left: 10.5rem;
-}
+} */
 
 .navlink-wrapper {
   padding-left: 3.5rem;
   padding-right: 3.5rem;
+}
+
+.sigmameals-logo {
+  width: auto;
+  height: 90px;
 }
