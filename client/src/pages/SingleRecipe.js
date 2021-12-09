@@ -2,7 +2,8 @@ import { React, useState, useEffect } from "react";
 import "../App.css";
 
 const SingleRecipe = () => {
-  const [recipe, setRecipe] = useState({});
+  const [ingredients, setIngredients] = useState([]);
+  const [recipe, setRecipe] = useState([]);
 
   const queryParams = new URLSearchParams(window.location.search);
   const id = queryParams.get("id");
@@ -10,9 +11,13 @@ const SingleRecipe = () => {
   useEffect(() => {
     fetch(`/get_recipe?id=${id}`)
       .then((resp) => resp.json())
-      .then((data) => setRecipe(data.result));
+      .then((data) => {
+        setIngredients(data.result);
+        setRecipe(data.result[0]);
+      });
   }, [id]);
 
+  console.log(ingredients);
   console.log(recipe);
 
   return (
