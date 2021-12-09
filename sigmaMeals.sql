@@ -397,7 +397,7 @@ VALUES(
     10,
     1.48,
     5,
-    327,
+    1,
     'If you want to add more <b>gluten free and dairy free</b> recipes to your recipe box, Kale Smoothie (Delicious, Healthy and Vegan!) might be a recipe you should try. For <b>$1.48 per serving</b>, this recipe <b>covers 28%</b> of your daily requirements of vitamins and minerals. One portion of this dish contains around <b>8g of protein</b>, <b>6g of fat</b>, and a total of <b>197 calories</b>. This recipe serves 2. 1748 people found this recipe to be scrumptious and satisfying. Several people really liked this breakfast. From preparation to the plate, this recipe takes roughly <b>5 minutes</b>. This recipe from Picky Eater Blog requires kale 1-2 cups, ice - optional, almond milk, and pear. Overall, this recipe earns a <b>very bad (but still fixable) spoonacular score of 0%</b>. <a href="https://spoonacular.com/recipes/healthy-and-delicious-leek-kale-and-mushroom-frittata-531081">Healthy and Delicious Leek, Kale and Mushroom Frittata</a>, <a href="https://spoonacular.com/recipes/banana-almond-paleo-smoothie-delicious-healthy-482086">Bananan Almond Paleo Smoothie – Delicious & Healthy</a>, and <a href="https://spoonacular.com/recipes/banana-almond-paleo-smoothie-delicious-healthy-1326365">Bananan Almond Paleo Smoothie – Delicious & Healthy</a> are very similar to this recipe.',
     'step 1 : Put all of the ingredients in a blender – blend until smooth. Drink and enjoy.
 ',
@@ -411,7 +411,7 @@ VALUES(
     1,
     2.26,
     15,
-    324,
+    2,
     'Baby Kale Breakfast Salad with Quinoa & Strawberries is a main course that serves 1. One serving contains <b>419 calories</b>, <b>16g of protein</b>, and <b>23g of fat</b>. For <b>$2.32 per serving</b>, this recipe <b>covers 38%</b> of your daily requirements of vitamins and minerals. It is brought to you by Eating Well. Several people made this recipe, and 462 would say it hit the spot. A mixture of ground pepper, lightly baby kale, quinoa, and a handful of other ingredients are all it takes to make this recipe so delicious. To use up the olive oil you could follow this main course with the <a href="https://spoonacular.com/recipes/sauteed-banana-granola-and-yogurt-parfait-624619">Sauteed Banana, Granolan and Yogurt Parfait</a> as a dessert. It is a good option if you''re following a <b>gluten free, dairy free, lacto ovo vegetarian, and vegan</b> diet. From preparation to the plate, this recipe takes roughly <b>15 minutes</b>. With a spoonacular <b>score of 0%</b>, this dish is improvable. Similar recipes are <a href="https://spoonacular.com/recipes/baby-kale-salad-with-strawberries-goat-cheese-and-strawberry-mint-vinaigrette-512613">Baby Kale Salad with Strawberries, Goat Cheese, and Strawberry-Mint Vinaigrette</a>, <a href="https://spoonacular.com/recipes/baby-kale-breakfast-salad-622280">Baby Kale Breakfast Salad</a>, and <a href="https://spoonacular.com/recipes/strawberries-and-cream-breakfast-quinoa-582127">Strawberries and Cream Breakfast Quinoa</a>.',
     'step 1 : Mash garlic and salt together with the side of a chef''s knife or a fork to form a paste.
 step 2 : Whisk the garlic paste, oil, vinegar and pepper together in a medium bowl.
@@ -428,7 +428,7 @@ VALUES(
     1,
     2.15,
     3,
-    329,
+    3,
     'Oatmeal Berry Breakfast Cake [Dairy, Gluten & Sugar Free] might be just the dessert you are searching for. One serving contains <b>270 calories</b>, <b>20g of protein</b>, and <b>5g of fat</b>. This recipe serves 1 and costs $2.15 per serving. This recipe is liked by 1189 foodies and cooks. If you have almond milk, baking powder, rolled oats, and a few other ingredients on hand, you can make it. From preparation to the plate, this recipe takes around <b>3 minutes</b>. It is a good option if you''re following a <b>gluten free, dairy free, and fodmap friendly</b> diet. All things considered, we decided this recipe <b>deserves a spoonacular score of 100%</b>. This score is awesome. Similar recipes include <a href="https://spoonacular.com/recipes/pumpkin-pie-bars-with-brown-sugar-oatmeal-crust-gluten-free-dairy-free-619060">Pumpkin Pie Bars with Brown Sugar Oatmeal Crust (gluten free & dairy free!)</a>, <a href="https://spoonacular.com/recipes/oat-fruit-breakfast-bars-dairy-egg-sugar-flour-nut-gluten-free-557231">Oat & Fruit Breakfast Bars: Dairy, Egg, Sugar, Flour, Nut & Gluten- Free</a>, and <a href="https://spoonacular.com/recipes/1-minute-sugar-free-chocolate-mug-cake-low-carb-dairy-gluten-free-557212">1 Minute Sugar-Free Chocolate Mug Cake {Low Carb, Dairy & Gluten Free}</a>.',
     'step 1 : Spray a large 16 ounce ramekin (or use two small ramekins) with nonstick cooking spray.
 step 2 : Mix all ingredients together in the ramekin except the berries.Stir well to incorporate,
@@ -445,7 +445,7 @@ VALUES(
     2,
     105.88,
     85,
-    0,
+    4,
     'Apple-Brined Chicken Thighs is a <b>gluten free and dairy free</b> main course. For <b>$105.88 per serving</b>, this recipe <b>covers 27%</b> of your daily requirements of vitamins and minerals. One serving contains <b>787 calories</b>, <b>40g of protein</b>, and <b>42g of fat</b>. This recipe serves 5. Head to the store and pick up pepper, onion, garlic cloves, and a few other things to make it today. To use up the lemon you could follow this main course with the <a href="https://spoonacular.com/recipes/lemon-shortbread-cookies-with-lemon-icing-a-tribute-to-aunt-roxanne-487814">Lemon Shortbread Cookies with Lemon Icing {A Tribute to Aunt Roxanne}</a> as a dessert. 1 person has made this recipe and would make it again. All things considered, we decided this recipe <b>deserves a spoonacular score of 32%</b>. This score is rather bad. Try <a href="https://spoonacular.com/recipes/apple-cider-brined-chicken-287151">Apple Cider Brined Chicken</a>, <a href="https://spoonacular.com/recipes/apple-brined-and-smoked-turkey-75312">Apple-brined And Smoked Turkey</a>, and <a href="https://spoonacular.com/recipes/apple-cider-brined-turkey-breast-536739">Apple Cider Brined Turkey Breast</a> for similar recipes.',
     'step 1 : In a Dutch oven, combine the cider, onion, lemon, rosemary sprigs, salt, 1/4 cup brown sugar, garlic, bay leaf and peppercorns. Bring to a boil. Cook and stir until salt and brown sugar are dissolved.
 step 2 : Remove from the heat; stir in water. Cool brine to room temperature.
@@ -467,7 +467,7 @@ VALUES(
     2,
     82.30,
     45,
-    328,
+    5,
     'The Det Burger might be just the main course you are searching for. This recipe serves 4 and costs $81.93 per serving. One portion of this dish contains roughly <b>56g of protein</b>, <b>71g of fat</b>, and a total of <b>963 calories</b>. This recipe is typical of American cuisine. 1 person has made this recipe and would make it again. Head to the store and pick up sauteed cremini mushrooms, cheddar cheese, pepper, and a few other things to make it today. To use up the onion you could follow this main course with the <a href="https://spoonacular.com/recipes/candy-corn-cupcakes-63881">Candy Corn Cupcakes</a> as a dessert. All things considered, we decided this recipe <b>deserves a spoonacular score of 46%</b>. This score is pretty good. Try <a href="https://spoonacular.com/recipes/burger-club-award-winning-logan-county-burger-patty-melt-477749">Burger Club: Award-Winning Logan County Burger Patty Melt</a>, <a href="https://spoonacular.com/recipes/beef-burger-recipe-elvis-burger-with-salad-gherkin-23359">Beef Burger Recipe (elvis Burger With Salad & Gherkin)</a>, and <a href="https://spoonacular.com/recipes/new-york-burger-week-pretzel-burger-with-beer-cheese-493632">New York Burger Week: Pretzel Burger with Beer Cheese</a> for similar recipes.',
     'step 1 : Make the Det
 step 1 : Combine all the ingredients in a bowl.
@@ -488,7 +488,7 @@ VALUES(
     2,
     68.25,
     165,
-    321,
+    6,
     'How To Brine and Grill a Pork Tenderloin might be just the main course you are searching for. This recipe makes 4 servings with <b>622 calories</b>, <b>94g of protein</b>, and <b>23g of fat</b> each. For <b>$68.25 per serving</b>, this recipe <b>covers 40%</b> of your daily requirements of vitamins and minerals. This recipe from 101 Cooking for Two has 1 fans. Head to the store and pick up brine, garlic, sugar, and a few other things to make it today. To use up the olive oil you could follow this main course with the <a href="https://spoonacular.com/recipes/sauteed-banana-granola-and-yogurt-parfait-624619">Sauteed Banana, Granolan and Yogurt Parfait</a> as a dessert. From preparation to the plate, this recipe takes around <b>2 hours and 45 minutes</b>. It is a good option if you''re following a <b>gluten free and dairy free</b> diet. All things considered, we decided this recipe <b>deserves a spoonacular score of 54%</b>. This score is solid. Try <a href="https://spoonacular.com/recipes/pork-brine-597140">Pork Brine</a>, <a href="https://spoonacular.com/recipes/brine-cured-pork-kabobs-with-molasses-glaze-jalapenos-and-papaya-253878">Brine-Cured Pork Kabobs with Molasses Glaze, Jalapenos and Papaya</a>, and <a href="https://spoonacular.com/recipes/grilled-pork-chops-with-brown-sugar-brine-and-onion-peach-marmalade-82107">Grilled Pork Chops with Brown-sugar Brine and Onion-Peach Marmalade</a> for similar recipes.',
     'step 1 : Trim the pork tenderloin well.
 step 2 : Remove the “silver skin” and any trim-able fat.
@@ -512,7 +512,7 @@ VALUES(
     3,
     67.44,
     45,
-    328,
+    7,
     'Rosemary Chicken with Zucchini is a <b>gluten free, dairy free, fodmap friendly, and whole 30</b> main course. This recipe makes 4 servings with <b>439 calories</b>, <b>40g of protein</b>, and <b>19g of fat</b> each. For <b>$67.55 per serving</b>, this recipe <b>covers 33%</b> of your daily requirements of vitamins and minerals. 1 person has made this recipe and would make it again. A mixture of carrots, zucchini, whole-grain mustard, and a handful of other ingredients are all it takes to make this recipe so scrumptious. To use up the zucchini you could follow this main course with the <a href="https://spoonacular.com/recipes/zucchini-dessert-squares-415963">Zucchini Dessert Squares</a> as a dessert. From preparation to the plate, this recipe takes around <b>45 minutes</b>. All things considered, we decided this recipe <b>deserves a spoonacular score of 58%</b>. This score is good. Try <a href="https://spoonacular.com/recipes/fresh-rosemary-chicken-and-zucchini-105265">Fresh Rosemary Chicken and Zucchini</a>, <a href="https://spoonacular.com/recipes/rosemary-zucchini-sticks-105372">Rosemary Zucchini Sticks</a>, and <a href="https://spoonacular.com/recipes/fragrant-rosemary-zucchini-105562">Fragrant Rosemary Zucchini</a> for similar recipes.',
     'step 1 : Freeze ItQuarter the potatoes. Peel the carrots.
 step 2 : Cut the carrots and zucchini into 2-inch sticks.
@@ -530,7 +530,7 @@ VALUES(
     3,
     66.58,
     150,
-    321,
+    8,
     'Herbed Roast Chicken might be just the main course you are searching for. One serving contains <b>650 calories</b>, <b>43g of protein</b>, and <b>50g of fat</b>. For <b>$66.58 per serving</b>, this recipe <b>covers 24%</b> of your daily requirements of vitamins and minerals. This recipe serves 8. This recipe is liked by 1 foodies and cooks. If you have orange juice, olive oil, tarragon, and a few other ingredients on hand, you can make it. To use up the orange juice you could follow this main course with the <a href="https://spoonacular.com/recipes/plum-sherbert-with-orange-juice-and-plum-wine-80862">Plum Sherbert with Orange Juice and Plum Wine</a> as a dessert. From preparation to the plate, this recipe takes roughly <b>2 hours and 30 minutes</b>. All things considered, we decided this recipe <b>deserves a spoonacular score of 37%</b>. This score is rather bad. Try <a href="https://spoonacular.com/recipes/herbed-roast-chicken-246722">Herbed Roast Chicken</a>, <a href="https://spoonacular.com/recipes/roast-chicken-with-herbed-mushrooms-323939">Roast Chicken with Herbed Mushrooms</a>, and <a href="https://spoonacular.com/recipes/herbed-roast-chicken-legs-122664">Herbed Roast Chicken Legs</a> for similar recipes.',
     'step 1 : In the 2-gallon resealable plastic bag, combine the orange juice, oil, butter, vinegar, Worcestershire sauce, garlic, chives and seasonings.
 step 2 : Add chicken; seal bag and turn to coat.
@@ -552,7 +552,7 @@ VALUES(
     3,
     53.49,
     50,
-    329,
+    9,
     'Wild Herbed Pumpkin and Persimmon Soup might be just the main course you are searching for. For <b>$53.56 per serving</b>, this recipe <b>covers 58%</b> of your daily requirements of vitamins and minerals. This recipe makes 6 servings with <b>724 calories</b>, <b>16g of protein</b>, and <b>40g of fat</b> each. 38 people were impressed by this recipe. It is perfect for <b>Autumn</b>. Head to the store and pick up vegetable stock, herbs, handful seeds, and a few other things to make it today. To use up the herbs you could follow this main course with the <a href="https://spoonacular.com/recipes/mint-chocolate-chip-cupcakes-46882">Mint Chocolate Chip Cupcakes</a> as a dessert. From preparation to the plate, this recipe takes approximately <b>50 minutes</b>. It is a good option if you''re following a <b>gluten free and vegetarian</b> diet. All things considered, we decided this recipe <b>deserves a spoonacular score of 94%</b>. This score is great. Try <a href="https://spoonacular.com/recipes/from-the-pantry-curried-pumpkin-and-wild-rice-soup-743257">From the Pantry: Curried Pumpkin and Wild Rice Soup</a>, <a href="https://spoonacular.com/recipes/paleo-pumpkin-persimmon-smoothie-or-pudding-542964">Paleo Pumpkin Persimmon Smoothie or Pudding</a>, and <a href="https://spoonacular.com/recipes/herbed-wild-rice-35980">Herbed Wild Rice</a> for similar recipes.',
     'step 1 : Heat half the olive oil in a large saucepan, then gently cook the onions and ginger for 5 minutes, until soft but not coloured.
 step 2 : Add the pumpkin or squash to the pan, and then carry on cooking for with the lid on, stirring occasionally, until it starts to soften and turn golden, about 10 minutes.
@@ -571,7 +571,7 @@ VALUES(
     2,
     47.84,
     30,
-    322,
+    10,
     'Need a <b>dairy free side dish</b>? Chicken Fried Cauliflower Rice could be an outstanding recipe to try. One portion of this dish contains around <b>21g of protein</b>, <b>14g of fat</b>, and a total of <b>269 calories</b>. For <b>$47.86 per serving</b>, this recipe <b>covers 18%</b> of your daily requirements of vitamins and minerals. This recipe serves 4. Not a lot of people made this recipe, and 1 would say it hit the spot. From preparation to the plate, this recipe takes roughly <b>30 minutes</b>. If you have bacon, onion, chili sauce such as sambal oelek, and a few other ingredients on hand, you can make it. All things considered, we decided this recipe <b>deserves a spoonacular score of 36%</b>. This score is rather bad. Try <a href="https://spoonacular.com/recipes/cauliflower-chicken-fried-rice-855584">Cauliflower Chicken Fried "Rice</a>, <a href="https://spoonacular.com/recipes/lightened-fried-cauliflower-rice-with-chicken-568389">Lightened fried cauliflower rice with chicken</a>, and <a href="https://spoonacular.com/recipes/sriracha-chicken-cauliflower-fried-rice-483064">Sriracha Chicken Cauliflower “Fried Rice”</a> for similar recipes.',
     'step 1 : Heat the pan over medium-high heat, add the bacon and cook until crispy, about 3-5 minutes
 step 2 : Add the chicken and stir-fry until cooked, about 5 minutes.
