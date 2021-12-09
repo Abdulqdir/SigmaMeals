@@ -1061,7 +1061,7 @@ step 4 : Add sliced onions,curry leaves and green chillies and saute.Stir in the
 step 5 : Serve hot chicken stew with freshly made appams.
 ',
     'https://spoonacular.com/recipeImages/638343-556x370.jpg',
-    NOW()()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -1090,7 +1090,7 @@ step 15 : Bake at 350 degrees for 30-40 minutes or until cheese is melted.
 step 16 : Top with your choice of sour cream, guacamole, diced tomatoes and/or chopped green onions.
 ',
     'https://spoonacular.com/recipeImages/638409-556x370.jpg',
-    NOW()()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -1105,7 +1105,7 @@ VALUES(
 step 2 : Let it sit at least 30 minutes—or even overnight.When it comes time to cook your crêpes you can do it the traditional way, in a crêpe pan, or you can use an electric crêpe maker.
 ',
     'https://spoonacular.com/recipeImages/716407-556x370.jpg',
-    NOW()()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -1148,7 +1148,7 @@ add bed of quinoa,
     top with spinach mixture,
     and quail.',
     ' https: / / spoonacular.com / recipeImages / 633096 - 556x370.jpg ',
-    NOW()()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -1197,7 +1197,7 @@ VALUES(
     cut into triangles
     and serve with maple syrup.',
     ' https: / / spoonacular.com / recipeImages / 633971 - 556x370.jpg ',
-    NOW()()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -1230,7 +1230,7 @@ From preparation to the plate,
     And Onion Salad With Feta Vinaigrette < / a > for similar recipes.',
     '',
     ' https: / / spoonacular.com / recipeImages / 716416 - 556x370.jpg ',
-    NOW()()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -1279,7 +1279,7 @@ from the freezer.step 4: Pour the egg mixture.step 5: Bake,
     and bake the next 5 -7 minutes.Leave to cool.On cooled pie arrange the remaining half of fresh blueberries.Lightly sprinkle with granulated sugar
     and sliced almonds ',
     ' https: / / spoonacular.com / recipeImages / 635552 - 556x370.jpg ',
-    NOW()()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -1310,7 +1310,7 @@ From preparation to the plate,
     Cranberries & Alm < / a > for similar recipes.',
     '',
     ' https: / / spoonacular.com / recipeImages / 716405 - 556x370.jpg ',
-    NOW()()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -1356,7 +1356,7 @@ from the oven,
     and unmold onto serving plates.step 5: Sprinkle with powdered sugar
     and serve immediately.',
     ' https: / / spoonacular.com / recipeImages / 652284 - 556x370.jpg ',
-    NOW()()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -1399,7 +1399,7 @@ at 400 for 6 to 8 minutes
 or until heated through.Allow to stand for 3 to 5 minutes before serving.Use marinara
 or spaghetti sauce for dipping.',
     ' https: / / spoonacular.com / recipeImages / 652513 - 556x370.jpg ',
-    NOW()()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -1439,7 +1439,7 @@ From preparation to the plate,
     And that '' s it ! Pretty simple
     and very scrummy.',
     ' https: / / spoonacular.com / recipeImages / 641227 - 556x370.jpg ',
-    NOW()()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -1506,7 +1506,7 @@ Set rack over a sheet pan
     soak each cake with simple syrup.Allow to cool completely.step 17: Store in an airtight container
     or wrap tightly.',
     ' https: / / spoonacular.com / recipeImages / 662515 - 556x370.jpg ',
-    NOW()()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -1555,7 +1555,7 @@ Add mashed banana,
     or till a toothpick inserted in the center
     and comes out clean.',
     ' https: / / spoonacular.com / recipeImages / 633970 - 556x370.jpg ',
-    NOW()()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -1597,7 +1597,7 @@ from freezer
     or so.Meanwhile drizzle with ganache
     and garnish with fresh strawberries.',
     ' https: / / spoonacular.com / recipeImages / 642648 - 556x370.jpg ',
-    NOW()()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -1653,7 +1653,7 @@ set.To make the topping,
     and leave to cool.step 6: Spread the honey citron tea paste thinly
     and evenly on top of the cheesecake.Refrigerate the cheese cake until it is ready to serve.',
     ' https: / / spoonacular.com / recipeImages / 649056 - 556x370.jpg ',
-    NOW()()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -1716,7 +1716,7 @@ Add asparagus,
     salt
     and pepper.',
     ' https: / / spoonacular.com / recipeImages / 642605 - 556x370.jpg ',
-    NOW()()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -1785,7 +1785,7 @@ step 8 : Place in a preheated 350 degree F oven and bake for 35 minutes or until
 step 9 : Remove from oven and let cool before cutting into squares.
 ',
     'https://spoonacular.com/recipeImages/644081-556x370.jpg',
-    NOW()()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -1807,7 +1807,7 @@ step 8 : Top with mozzarella and provolone cheeses and distribute pepperoni slic
 step 9 : Remove from oven and let stand 5 minutes before slicing and serving.  May be topped with the additional Parmesan cheese.
 ',
     'https://spoonacular.com/recipeImages/641893-556x370.jpg',
-    NOW()()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -1828,7 +1828,7 @@ step 7 : Wash, hull and slice the strawberries. Fill the pie plate with the stra
 step 8 : Whip cream with 1 tablespoon of confectioners sugar until light and fluffy and serve with a slice of strawberry tart! Enjoy!
 ',
     'https://spoonacular.com/recipeImages/631762-556x370.jpg',
-    NOW()()
+    NOW()
   );
 INSERT INTO RECIPE
 VALUES(
@@ -1855,7 +1855,7 @@ step 13 : Bring the mixture to a boil and simmer until the volume is reduced by 
 step 14 : Add the diced apple and cook, stirring occasionally until most of the liquid has reduced off.After half an hour in the oven, take the roast out and spoon the apples all over the top. Return the roast to the oven, reduce the heat to 350 degrees F and cook uncovered until the internal temperature reaches 170 degrees F on a meat thermomether inserted into the center of the roast. Allow the pork to rest for about 15 minutes before carving and serving.
 ',
     'https://spoonacular.com/recipeImages/632590-556x370.jpg',
-    NOW()()
+    NOW()
   );
 INSERT INTO CONSISTS_OF
 VALUES(638343, 5006, 1.0, 'pounds');
