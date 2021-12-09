@@ -15,42 +15,12 @@ const MealPlanner = () => {
   };
 
   const sendRequest = (mealType, price) => {
-    //console.log(mealType, price);
     fetch(`/planner?cost=${price}&mealtype=${mealType}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.result);
         setRecipes(data.result);
       })
       .catch((err) => console.error(err));
-    //console.log('afafasfadfasdfasdf');
-    const arr = [
-      {
-        recipe_id: 1,
-        recipe_title: 'blah blah',
-        image_url: '',
-        recipe_description: 'descibining stuff',
-        recipe_total_cost: 4534,
-        rating: 5,
-      },
-      {
-        recipe_id: 2,
-        recipe_title: 'blah blah',
-        image_url: '',
-        recipe_description: 'descibining stuff',
-        recipe_total_cost: 4534,
-        rating: 5,
-      },
-      {
-        recipe_id: 3,
-        recipe_title: 'blah blah',
-        image_url: '',
-        recipe_description: 'descibining stuff',
-        recipe_total_cost: 4534,
-        rating: 5,
-      },
-    ];
-    // setRecipes(arr);
   };
 
   return (
