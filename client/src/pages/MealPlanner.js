@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Table, Row, Col, FloatingLabel, Form, Button } from 'react-bootstrap';
 import '../App.css';
 import parser from 'html-react-parser';
@@ -15,9 +15,9 @@ const MealPlanner = () => {
   };
 
   const sendRequest = (mealType, price) => {
-    fetch(`/planner?cost=${price}&type=${mealType}`)
+    fetch(`/planner?cost=${price}&mealtype=${mealType}`)
       .then((response) => response.json())
-      .then((data) => setRecipes(data))
+      .then((data) => setRecipes(data.result))
       .catch((err) => console.error(err));
     const arr = [
       {
@@ -78,7 +78,7 @@ const MealPlanner = () => {
           style={{ width: '15%', background: 'rgb(50,50,50)', border: 'none' }}
           onClick={() => sendRequest(mealType, price)}
         >
-          Search
+          Build Plan
         </Button>
       </Row>
       <div style={{ padding: '10px' }}>
