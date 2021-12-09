@@ -103,6 +103,18 @@ def meal_type_filter():
     if param4 is not None: result += get_recipes_meal_type(param4)
     return result, 200
 
+
+@app.route("/mealplanner", methods=['GET'])
+def meal_planner():
+    cost = request.args.get('cost')
+    meal_type = request.args.get('mealtype')
+
+    if cost is None or meal_type is None:
+        return {"error": "unsuccessful query"}, 401
+    else:
+        return str(cost) + str(meal_type), 200
+
+
     
 def get_recipes_meal_type(meal_type):
     query_result = db.engine.execute(
