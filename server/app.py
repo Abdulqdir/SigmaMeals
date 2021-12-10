@@ -107,9 +107,9 @@ def meal_planner():
         return {"error": "unsuccessful query"}, 401
 
     result = db.engine.execute(
-        '''SELECT * FROM RECIPE, MEAL_TYPE
+        '''SELECT * FROM RECIPE, MEAL_TYPE, RATING
        WHERE recipe_total_cost <= {}
-       AND type_name = '{}' AND RECIPE.meal_id = MEAL_TYPE.meal_id
+       AND type_name = '{}' AND RECIPE.meal_id = MEAL_TYPE.meal_id AND RECIPE.recipe_id = RATING.recipe_id
        ORDER BY recipe_total_cost
     '''.format(cost, meal_type)).all()
     recipe_dict = [dict(row) for row in result]
