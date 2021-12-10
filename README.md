@@ -5,5 +5,5 @@ recipe website that utilises javaScript,python and SQL to host budget oriented r
 to run launch Sigma Meal website
 step1: ```cd SigmaMeals\cleint```
 step2: ```npm install```
-step3: ```npm start``
+step3: ```npm start```
 
