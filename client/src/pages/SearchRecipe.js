@@ -23,11 +23,11 @@ const SearchRecipes = () => {
     if (newWindow) newWindow.opener = null;
   };
 
-  console.log(recipes);
+  // console.log(recipes);
 
   return (
-    <div className="browse-recipes-content">
-      <Table striped bordered hover size="sm" variant="light">
+    <div className='browse-recipes-content'>
+      <Table striped bordered hover size='sm' variant='light'>
         <thead>
           <tr>
             <th>Recipe</th>
@@ -42,17 +42,17 @@ const SearchRecipes = () => {
               onClick={() => openInNewtabSecure(`/recipe?id=${rep.recipe_id}`)}
             >
               <td>
-                <div className="recipe-container">
-                  <span className="recipe-title">{rep.recipe_title}</span>
+                <div className='recipe-container'>
+                  <span className='recipe-title'>{rep.recipe_title}</span>
                   <img
-                    className="recipe-image"
+                    className='recipe-image'
                     src={rep.image_url}
-                    alt=""
+                    alt=''
                   ></img>
                 </div>
               </td>
-              <td className="recipe-cost">${rep.recipe_total_cost}</td>
-              <td className="recipe-description">
+              <td className='recipe-cost'>${rep.recipe_total_cost}</td>
+              <td className='recipe-description'>
                 {parser(rep.recipe_description)}
               </td>
             </tr>
