@@ -39,7 +39,7 @@ export default function Topbar() {
               />
             </Col>
             <Button
-              href={`/search?recipe_name=${searchKeyword}`}
+              href={`/search_recipe?recipe_name=${searchKeyword}`}
               variant='dark'
             >
               Submit
