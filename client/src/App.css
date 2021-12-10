@@ -111,6 +111,7 @@ img {
 }
 
 .filter {
+  display: block;
   padding: 20px;
   font-size: 1.5em;
 }
@@ -118,6 +119,9 @@ img {
   font-weight: bolder;
   text-decoration: underline;
   margin-bottom: 20px;
+}
+.sortby-filter label {
+  font-size: 10px;
 }
 
 /* LandingPage css */
