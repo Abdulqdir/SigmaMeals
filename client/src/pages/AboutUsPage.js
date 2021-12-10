@@ -1,19 +1,9 @@
 import React from "react";
 import "./AboutUs.css";
-import uwt from "../components/uwt.jpg"
 const AboutUsPage = () => {
-  const myStyle={
-    backgroundImage: 
-    `url(${uwt})`,
-    height:'100vh',
-    marginTop:'-70px',
-    fontSize:'50px',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-};
   return (
     <div className="AboutUs-wrapper">
-      <div style = {myStyle}>
+      <div className="backg-image">
         <div className = "bod">
         <div className="row">
       <div className="col-md-12 text-center">
