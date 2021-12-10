@@ -1,26 +1,9 @@
 import { React, useState } from 'react';
-// import httpClient from "../httpClient";
+import { Card, FloatingLabel, Form, Button } from 'react-bootstrap';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
-  // const loginAxios = async () => {
-  //   // Axios stuff
-  //   try {
-  //     const resp = await httpClient.post("//127.0.0.1:5000/login", {
-  //       username,
-  //       password,
-  //     });
-
-  //     // redirect to landing page if no errors
-  //     window.location.href = "/";
-  //   } catch (error) {
-  //     if (error.response.status === 401) {
-  //       alert("Invalid Credential");
-  //     }
-  //   }
-  // };
 
   const loginFetch = async () => {
     await fetch('/auth', {
@@ -45,31 +28,37 @@ const LoginPage = () => {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>Please log in</h1>
-      <form>
-        <div>
-          <label>Username: </label>
-          <input
-            type='text'
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            id=''
-          />
-        </div>
-        <div>
-          <label>Password: </label>
-          <input
-            type='password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            id=''
-          />
-        </div>
-        <button type='button' onClick={() => loginFetch()}>
-          Submit
-        </button>
-      </form>
+    <div className='login-form-container'>
+      <Card className='login-card'>
+        <Card.Body>
+          <Card.Title>Welcome back! Please log in</Card.Title>
+          <FloatingLabel
+            controlId='floatingInput'
+            label='Username'
+            className='mb-3'
+          >
+            <Form.Control
+              type='username'
+              placeholder='username'
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </FloatingLabel>
+          <FloatingLabel
+            controlId='floatingInput'
+            label='Password'
+            className='mb-3'
+          >
+            <Form.Control
+              type='password'
+              placeholder='password'
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </FloatingLabel>
+          <Button onClick={() => loginFetch()} variant='outline-dark'>
+            Sign in
+          </Button>
+        </Card.Body>
+      </Card>
     </div>
   );
 };
