@@ -127,19 +127,20 @@ def browse_search():
     req = request.json
     response = req.get("filter")
     result = []
+    asc = 'ASC'
+    des = 'DESC'
+    statement = "SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, R.created_date, R.created_user_id,R.meal_id, RA.rating, M.type_name FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id ORDER BY recipe_total_cost {}"
     if response == 'cost_decending_order':
         result = db.engine.execute(
-             '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, R.created_date, R.created_user_id,R.meal_id, RA.rating, M.type_name
-         FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id ORDER BY recipe_total_cost DESC''').all()
+             statement.format(des)).all()
     elif response == 'cost_ascending_order':
         result = db.engine.execute(
-            '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, R.created_date, R.created_user_id,R.meal_id, RA.rating, M.type_name
-         FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id ORDER BY recipe_total_cost ASC''').all()
+            statement.format(asc)).all()
     elif response == 'rating':
         result = db.engine.execute(
             '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, R.created_date, R.created_user_id,R.meal_id, RA.rating, M.type_name
          FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id 
-                ORDER BY R.recipe_total_cost ASC,RA.rating DESC''').all()
+                ORDER BY RA.rating DESC,R.recipe_total_cost ASC''').all()
     if result is None:
         return {"error": "unsuccessful query"}, 401
     else:
@@ -154,13 +155,17 @@ def get_recipe():
     result = db.engine.execute(
         '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, 
         R.created_date, R.created_user_id,R.meal_id, M.type_name, C.quantity, C.measurement, I.ing_name, RA.rating, RA.user_id
-         FROM RECIPE R, CONSISTS_OF C, INGREDIENT I,MEAL_TYPE M, RATING RA 
-         WHERE R.recipe_id=\'{}\' AND R.recipe_id=C.recipe_id AND R.meal_id=M.meal_id AND C.ingredient_id=I.ingredient_id AND R.recipe_id = RA.recipe_id'''.format(id)).first()
+         FROM RECIPE R JOIN CONSISTS_OF C ON R.recipe_id=C.recipe_id
+          JOIN INGREDIENT I ON C.ingredient_id=I.ingredient_id
+          JOIN MEAL_TYPE M ON R.meal_id=M.meal_id
+          JOIN RATING RA ON R.recipe_id = RA.recipe_id
+         WHERE R.recipe_id=\'{}\' 
+        '''.format(id)).all()
 
     if result is None:
         return {"error": "unsuccessful query"}, 401
     else:
-        return {'result': [dict(result)]}
+        return {'result': [dict(row) for row in result]}
 
 # Serve React App
 @app.route('/', defaults={'path': ''})
