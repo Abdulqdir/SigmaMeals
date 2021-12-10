@@ -1,3 +1,9 @@
+'''
+Python.py creates the .sql file 
+Authors: Abdulqadir Ibrahim, Artem Potafiy, Lam Mai, Ruchik Chaudhari
+Date: 12/10/2021
+Version: Winter 2021 
+'''
 import json
 import os.path as path
 from random import randint
