@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-
+import "./register.css";
 const RegisterPage = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -8,9 +8,13 @@ const RegisterPage = () => {
   const [password, setPassword] = useState('');
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div className="register-wrapper">
+       <div className="col-md-12 text-center">
+       <div style={{ padding: '20px' }}>
       <h1>Enter your information</h1>
+      <hr></hr>
       <form>
+        <ol>
         <div>
           <label>First name: </label>
           <input
@@ -20,6 +24,7 @@ const RegisterPage = () => {
             id=""
           />
         </div>
+        <br></br>
         <div>
           <label>Last name: </label>
           <input
@@ -29,6 +34,7 @@ const RegisterPage = () => {
             id=""
           />
         </div>
+        <br></br>
         <div>
           <label>Email: </label>
           <input
@@ -38,6 +44,7 @@ const RegisterPage = () => {
             id=""
           />
         </div>
+        <br></br>
         <div>
           <label>Username: </label>
           <input
@@ -47,6 +54,7 @@ const RegisterPage = () => {
             id=""
           />
         </div>
+        <br></br>
         <div>
           <label>Password: </label>
           <input
@@ -56,9 +64,15 @@ const RegisterPage = () => {
             id=""
           />
         </div>
+        <br></br>
         <button type="button">Submit</button>
+        </ol>
+       
       </form>
     </div>
+       </div>
+    </div>
+    
   );
 };
 
