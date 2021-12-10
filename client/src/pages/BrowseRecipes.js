@@ -131,7 +131,10 @@ const BrowseRecipes = () => {
           {recipes.map((rep) => (
             <tr
               key={rep.recipe_id + ',' + rep.recipe_title}
-              onClick={() => openInNewtabSecure(`/recipe?id=${rep.recipe_id}`)}
+              onClick={() => {
+                console.log(rep);
+                openInNewtabSecure(`/recipe?id=${rep.recipe_id}`);
+              }}
             >
               <td>
                 <div className='recipe-container'>
