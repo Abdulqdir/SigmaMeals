@@ -1,0 +1,23 @@
+.register-wrapper {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding: 40px;
+    background-color: green;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    height: 100vh; 
+    min-height: 100%;
+    width: 100vw;
+    background-position: center; 
+  }
+
+  .con{
+    color:black;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: transparent;
+    flex-direction: column;
+    font-family:"Open Sans";
+  }
+  

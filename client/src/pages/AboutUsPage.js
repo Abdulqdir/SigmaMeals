@@ -31,7 +31,7 @@ const AboutUsPage = () => {
           <div className="con">
             <p>
               We want college students to become self sufficient and take care of themself when their parents are no longer with them.
-              We want to teach every college student important skill such us cooking and 
+              We want to teach every college student important skills such us cooking and 
               help them eat healthy food and save money.
             </p>
           </div>
