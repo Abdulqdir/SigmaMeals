@@ -66,39 +66,39 @@ def login():
 
 @app.route("/Browse", methods=['GET'])
 def browse_recipe():
-
-    result = db.engine.execute(
-        '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, R.created_date, R.created_user_id,R.meal_id, RA.rating, M.type_name
-         FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id''').all()
-
-    if result is None:
-        return {"error": "unsuccessful query"}, 401
-    else:
-        return {'result': [dict(row) for row in result]}
-
-# meal_type filter
-
-
-@app.route("/mealtype", methods=['GET'])
-def meal_type_filter():
     param1 = request.args.get('param1')
     param2 = request.args.get('param2')
     param3 = request.args.get('param3')
     param4 = request.args.get('param4')
 
     if param1 is None and param2 is None and param3 is None and param4 is None:
-        return {"error": "unsuccessful query"}, 401
-
-    result = ""
-    if param1 is not None:
-        result += get_recipes_meal_type(param1)
-    if param2 is not None:
-        result += get_recipes_meal_type(param2)
-    if param3 is not None:
-        result += get_recipes_meal_type(param3)
-    if param4 is not None:
-        result += get_recipes_meal_type(param4)
-    return result, 200
+        # return {"error": "unsuccessful query"}, 401
+        result = db.engine.execute(
+            '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, R.created_date, R.created_user_id,R.meal_id, RA.rating, M.type_name
+            FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id''').all()
+        if result is None:
+            return {"error": "unsuccessful query"}, 401
+        else:
+            return {'result': [dict(row) for row in result]}
+    else:
+        result = {"result": []}
+        if param1 is not None:
+            recipes = get_recipes_meal_type(param1)
+            for x in recipes:
+                result['result'].append(x)
+        if param2 is not None:
+            recipes = get_recipes_meal_type(param2)
+            for x in recipes:
+                result['result'].append(x)
+        if param3 is not None:
+            recipes = get_recipes_meal_type(param3)
+            for x in recipes:
+                result['result'].append(x)
+        if param4 is not None:
+            recipes = get_recipes_meal_type(param4)
+            for x in recipes:
+                result['result'].append(x)
+        return result, 200
 
 # get specific meal
 
@@ -138,7 +138,7 @@ def get_recipes_meal_type(meal_type):
         AND R.meal_id = M.meal_id
         AND R.recipe_id = RA.recipe_id
            '''.format(meal_type)).all()
-    return json.dumps([dict(r) for r in query_result])
+    return [dict(r) for r in query_result]
 
 # search through the database
 
@@ -152,7 +152,6 @@ def search():
         FROM RECIPE
         WHERE LOWER(recipe_title) LIKE LOWER('%%{}%%')
         '''.format(arg)).all()
-    print(query_result)
 
     if query_result is None:
         return {"error": "unsuccessful query"}, 401

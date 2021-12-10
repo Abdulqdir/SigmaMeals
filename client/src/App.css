@@ -110,6 +110,16 @@ img {
   font-size: large;
 }
 
+.filter {
+  padding: 20px;
+  font-size: 1.5em;
+}
+.filter span {
+  font-weight: bolder;
+  text-decoration: underline;
+  margin-bottom: 20px;
+}
+
 /* LandingPage css */
 .landing {
   min-height: 100vh;
