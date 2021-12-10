@@ -43,16 +43,12 @@ const BrowseRecipes = () => {
     if (newWindow) newWindow.opener = null;
   };
 
-  console.log(recipes);
-
   function compareValues(key, order = '(ascending)') {
     return function innerSort(a, b) {
       if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
         // property doesnt exist on either object
         return 0;
       }
-      console.log(key);
-      console.log(a[key]);
       const valA = typeof a[key] === 'string' ? parseFloat(a[key]) : a[key];
       const valB = typeof b[key] === 'string' ? parseFloat(b[key]) : b[key];
 
