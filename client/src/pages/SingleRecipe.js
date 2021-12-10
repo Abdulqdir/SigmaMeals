@@ -17,9 +17,9 @@ const SingleRecipe = () => {
       });
   }, [id]);
 
-  console.log(recipe);
-  console.log(ingredients);
-  console.log(recipe.instructions);
+  // console.log(recipe);
+  // console.log(ingredients);
+  // console.log(recipe.instructions);
 
   return (
     <div className="single-recipe-container">
@@ -47,7 +47,7 @@ const SingleRecipe = () => {
             {String(recipe.instructions)
               .split('\n')
               .map((str) => (
-                <p>{str}</p>
+                <p key={str.charAt(5)}>{str}</p>
               ))}
           </div>
         </div>

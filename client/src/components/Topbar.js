@@ -1,10 +1,11 @@
-import React from "react";
-import { Container, Navbar } from "react-bootstrap";
-import Nav from "react-bootstrap/Nav";
-import "../App.css";
-import logo from "./logo.png";
+import { React, useState } from 'react';
+import { Container, Form, Navbar, Nav, Col, Button } from 'react-bootstrap';
+import '../App.css';
+import logo from './logo.png';
 
 export default function Topbar() {
+  const [searchKeyword, setSearchKeyword] = useState('');
+
   return (
     <Navbar bg="light" variant="light">
       <Container>
@@ -30,6 +31,20 @@ export default function Topbar() {
         </Nav>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
+          <div className="search-bar">
+            <Col xs="auto">
+              <Form.Control
+                placeholder="Seach Recipes"
+                onChange={(e) => setSearchKeyword(e.target.value)}
+              />
+            </Col>
+            <Button
+              href={`/search?recipe_name=${searchKeyword}`}
+              variant="dark"
+            >
+              Submit
+            </Button>
+          </div>
           <Navbar.Text>
             Join now: <a href="/login">Sign up</a>
           </Navbar.Text>
