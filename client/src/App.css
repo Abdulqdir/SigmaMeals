@@ -19,8 +19,9 @@ img {
 
 .App {
   height: 100vh;
-  background-image: linear-gradient(#f8f9fa, #f8f9fa, #f8fdff, #ffffff);
+  background-image: url('./components/background.jpg');
   background-size: cover;
+  background-attachment: scroll;
 }
 
 .App-logo {
@@ -140,14 +141,20 @@ img {
   display: flex;
   align-items: center;
 }
+.landing-header {
+  padding: 20px;
+  background: #dbdbdba8;
+  border-radius: 10px;
+  box-shadow: 0 0 5px 0;
+}
 .landing-details {
   width: 420px;
 }
 .foodImage {
   width: auto;
-  height: 300px;
-  margin-left: 20vw;
-  border-radius: 90px;
+  height: 260px;
+  margin-left: 18vw;
+  border-radius: 15px;
 }
 .button-container {
   display: flex;
@@ -198,10 +205,13 @@ img {
   justify-content: center;
   padding: 20px;
 }
+.login-form-container div {
+  border-radius: 10px;
+}
 .login-card {
   width: 24rem;
   height: 30rem;
-  box-shadow: 0px 0px 21px -7px #909090;
+  box-shadow: 0px 0px 9px 3px #909090;
 }
 .login-card div {
   padding-bottom: 12px;
