@@ -30,7 +30,9 @@ const AboutUsPage = () => {
           <div className="underline mx-auto"></div>
           <div className="con">
             <p>
-              help every broke college student eat healthy and save money
+              We want college students to become self sufficient and take care of themself when their parents are no longer with them.
+              We want to teach every college student important skill such us cooking and 
+              help them eat healthy food and save money.
             </p>
           </div>
         </div>
