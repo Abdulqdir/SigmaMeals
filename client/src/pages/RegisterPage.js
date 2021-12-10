@@ -10,14 +10,16 @@ const RegisterPage = () => {
   return (
     <div className="register-wrapper">
        <div className="col-md-12 text-center">
-       <div style={{ padding: '20px' }}>
+       <div style={{ padding: '40px', alignContent:"center" }}>
       <h1>Enter your information</h1>
       <hr></hr>
+      <div className="textWr">
       <form>
         <ol>
         <div>
-          <label>First name: </label>
+          <label style={{color: 'white'}}>First name: </label>
           <input
+            placeholder="first Name"
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
@@ -26,8 +28,9 @@ const RegisterPage = () => {
         </div>
         <br></br>
         <div>
-          <label>Last name: </label>
+          <label style={{color: 'white'}}>Last name: </label>
           <input
+             placeholder="last Name"
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
@@ -36,8 +39,9 @@ const RegisterPage = () => {
         </div>
         <br></br>
         <div>
-          <label>Email: </label>
+          <label style={{color: 'white'}}>Email: </label>
           <input
+             placeholder="email@mail.com"
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -46,8 +50,9 @@ const RegisterPage = () => {
         </div>
         <br></br>
         <div>
-          <label>Username: </label>
+          <label style={{color: 'white'}}>Username: </label>
           <input
+             placeholder="user Name"
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -56,8 +61,9 @@ const RegisterPage = () => {
         </div>
         <br></br>
         <div>
-          <label>Password: </label>
+          <label style={{color: 'white'}}>Password: </label>
           <input
+            placeholder="***********"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -69,6 +75,8 @@ const RegisterPage = () => {
         </ol>
        
       </form>
+      </div>
+      
     </div>
        </div>
     </div>

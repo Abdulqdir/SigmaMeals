@@ -1,11 +1,7 @@
-
-from operator import methodcaller
 import os
 from flask import Flask, request, json, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import query
 from module import *
-import random
 
 # create flask instance
 app = Flask(__name__, static_folder='../client/build')
@@ -18,7 +14,6 @@ db = SQLAlchemy(app)
 @app.route('/create_user', methods=['post'])
 def create_user():
     req = request.json
-    user_id = random.getrandbits(18)
     first_name = req.get('first_name')
     last_name = req.get('last_name')
     email = req.get('email')
@@ -28,12 +23,13 @@ def create_user():
         'SELECT username FROM USERS WHERE USERS.firstname = \'{}\' AND USERS.username = \'{}\' '.format(first_name, user_name)).first()
     if result is None:
         db.engine.execute(
-            'INSERT INTO USERS VALUES(\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')'.format(user_id, first_name, last_name, user_name, email, password))
+            'INSERT INTO USERS VALUES(\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')'.format(first_name, last_name, user_name, email, password))
         user = db.engine.execute(
-            'SELECT username FROM USERS WHERE USERS.user_id = \'{}\' AND USERS.firstname = \'{}\' AND USERS.username = \'{}\' '.format(user_id, first_name, user_name)).first()
+            'SELECT username FROM USERS WHERE USERS.user_id = \'{}\' AND USERS.firstname = \'{}\' AND USERS.username = \'{}\' '.format(first_name, user_name)).first()
         if user is None:
             return {"user": "not added"}, 401
         else:
+            print(str(user))
             return {"user_name": str(user)}
     else:
         return {"user": 'User exists'}
@@ -217,4 +213,3 @@ if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     print("Running on port "+str(port)+"...")
     app.run(debug=True, host='0.0.0.0', port=port)
-    # meal_planner()

@@ -2,7 +2,7 @@
     padding-top: 40px;
     padding-bottom: 40px;
     padding: 40px;
-    background-color: green;
+    background-color: rgba(128, 128, 128, 0.842);
     background-size: cover;
     background-repeat: no-repeat;
     position: absolute;
@@ -20,4 +20,7 @@
     flex-direction: column;
     font-family:"Open Sans";
   }
-  
+  .textWr{
+    padding: 40px;
+    background-color: rgb(30, 30, 30,0.7);
+  }
