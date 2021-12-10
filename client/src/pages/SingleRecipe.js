@@ -17,33 +17,29 @@ const SingleRecipe = () => {
       });
   }, [id]);
 
-  // console.log(recipe);
-  // console.log(ingredients);
-  // console.log(recipe.instructions);
-
   return (
-    <div className="single-recipe-container">
-      <span className="single-recipe-title">{recipe.recipe_title}</span>
-      <div className="recipe-info-container">
-        <img className="single-recipe-image" src={recipe.image_url} alt="" />
-        <div className="ingredients-container">
+    <div className='single-recipe-container'>
+      <span className='single-recipe-title'>{recipe.recipe_title}</span>
+      <div className='recipe-info-container'>
+        <img className='single-recipe-image' src={recipe.image_url} alt='' />
+        <div className='ingredients-container'>
           <div style={{ paddingBottom: '20px' }}>
-            <span className="ingredient-text">
+            <span className='ingredient-text'>
               Preparation time: {recipe.prep_time} minutes
             </span>
             <br />
-            <span className="ingredient-text">
+            <span className='ingredient-text'>
               Cost per Serving: ${recipe.recipe_total_cost}
             </span>
           </div>
-          <span className="ingredient-text">Ingredients:</span>
+          <span className='ingredient-text'>Ingredients:</span>
           {ingredients.map((ing) => (
-            <li className="ingredient-li" key={ing.ing_name}>
+            <li className='ingredient-li' key={ing.ing_name}>
               {ing.quantity} {ing.measurement} of {ing.ing_name}
             </li>
           ))}
-          <div className="instructions-container">
-            <span className="ingredient-text">Instructions:</span>
+          <div className='instructions-container'>
+            <span className='ingredient-text'>Instructions:</span>
             {String(recipe.instructions)
               .split('\n')
               .map((str) => (

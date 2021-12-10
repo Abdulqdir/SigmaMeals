@@ -18,7 +18,9 @@ img {
 }
 
 .App {
-  text-align: center;
+  height: 100vh;
+  background-image: linear-gradient(#f8f9fa, #f8f9fa, #f8fdff, #ffffff);
+  background-size: cover;
 }
 
 .App-logo {
@@ -170,6 +172,7 @@ img {
   justify-content: center;
   margin-left: 30px;
   margin-right: 30px;
+  padding-bottom: 60px;
 }
 .ingredients-container {
   padding-left: 20px;
