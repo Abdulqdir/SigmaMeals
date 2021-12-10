@@ -29,7 +29,6 @@ const LoginPage = () => {
         Authorization: 'Basic ' + btoa(username + ':' + password),
         'Content-Type': 'application/json',
       },
-      // body: JSON.stringify({ username: username, password: password }),
     })
       .then((resp) => {
         if (resp.status === 200) {
@@ -52,22 +51,22 @@ const LoginPage = () => {
         <div>
           <label>Username: </label>
           <input
-            type="text"
+            type='text'
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            id=""
+            id=''
           />
         </div>
         <div>
           <label>Password: </label>
           <input
-            type="password"
+            type='password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            id=""
+            id=''
           />
         </div>
-        <button type="button" onClick={() => loginFetch()}>
+        <button type='button' onClick={() => loginFetch()}>
           Submit
         </button>
       </form>

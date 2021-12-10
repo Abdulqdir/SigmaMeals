@@ -11,6 +11,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://gtbbojbdpfuvny:d763d0bf441
 db = SQLAlchemy(app)
 
 # add user to the database
+
+
 @app.route('/create_user', methods=['post'])
 def create_user():
     req = request.json
@@ -23,18 +25,20 @@ def create_user():
         'SELECT username FROM USERS WHERE USERS.firstname = \'{}\' AND USERS.username = \'{}\' '.format(first_name, user_name)).first()
     if result is None:
         db.engine.execute(
-            'INSERT INTO USERS VALUES(\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')'.format(first_name, last_name, user_name, email, password))
+            '''INSERT INTO USERS(firstname, lastname, username, email, password)
+            VALUES(\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')'''.format(first_name, last_name, user_name, email, password))
         user = db.engine.execute(
-            'SELECT username FROM USERS WHERE USERS.user_id = \'{}\' AND USERS.firstname = \'{}\' AND USERS.username = \'{}\' '.format(first_name, user_name)).first()
+            'SELECT username FROM USERS WHERE USERS.firstname = \'{}\' AND USERS.username = \'{}\''.format(first_name, user_name)).first()
         if user is None:
-            return {"user": "not added"}, 401
+            return {"user": "not added"}, 406
         else:
-            print(str(user))
-            return {"user_name": str(user)}
+            return {"user_name": user.username}, 200
     else:
-        return {"user": 'User exists'}
+        return {"user": 'User exists'}, 401
 
 # check if you user exists
+
+
 @app.route("/auth", methods=['GET'])
 def login():
 
@@ -54,6 +58,8 @@ def login():
         }
 
 # return all recipes
+
+
 @app.route("/Browse", methods=['GET'])
 def browse_recipe():
     param1 = request.args.get('param1')
@@ -91,6 +97,8 @@ def browse_recipe():
         return result, 200
 
 # get specific meal
+
+
 @app.route("/planner", methods=['GET'])
 def meal_planner():
     cost = float(request.args.get('cost'))
@@ -129,6 +137,8 @@ def get_recipes_meal_type(meal_type):
     return [dict(r) for r in query_result]
 
 # search through the database
+
+
 @app.route("/search", methods=['GET'])
 def search():
     arg = request.args.get('recipe_name')
@@ -145,6 +155,8 @@ def search():
         return json.dumps([dict(r) for r in query_result]), 200
 
 # drop down selections
+
+
 @app.route("/Browse_search", methods=['GET'])
 def browse_search():
     req = request.json
@@ -171,6 +183,8 @@ def browse_search():
         return {'result': [dict(row) for row in result]}
 
 # return all recipes
+
+
 @app.route("/get_recipe", methods=['GET'])
 def get_recipe():
     recipe_id = request.args.get('id')
