@@ -18,7 +18,9 @@ img {
 }
 
 .App {
-  text-align: center;
+  height: 100vh;
+  background-image: linear-gradient(#f8f9fa, #f8f9fa, #f8fdff, #ffffff);
+  background-size: cover;
 }
 
 .App-logo {
@@ -67,6 +69,13 @@ img {
   border-radius: 0;
   height: 90px;
 }
+.search-bar {
+  display: flex;
+  padding-right: 45px;
+}
+.search-bar div {
+  padding-right: 10px;
+}
 
 /* BrowseRecipes css */
 .browse-recipes-content {
@@ -101,6 +110,20 @@ img {
 
 .recipe-description {
   font-size: large;
+}
+
+.filter {
+  display: block;
+  padding: 20px;
+  font-size: 1.5em;
+}
+.filter span {
+  font-weight: bolder;
+  text-decoration: underline;
+  margin-bottom: 20px;
+}
+.sortby-filter label {
+  font-size: 10px;
 }
 
 /* LandingPage css */
@@ -149,6 +172,7 @@ img {
   justify-content: center;
   margin-left: 30px;
   margin-right: 30px;
+  padding-bottom: 60px;
 }
 .ingredients-container {
   padding-left: 20px;
@@ -166,4 +190,19 @@ img {
 }
 .instructions-container {
   padding-top: 20px;
+}
+
+/* Login Page */
+.login-form-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+.login-card {
+  width: 24rem;
+  height: 30rem;
+  box-shadow: 0px 0px 21px -7px #909090;
+}
+.login-card div {
+  padding-bottom: 12px;
 }

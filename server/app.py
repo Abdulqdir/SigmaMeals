@@ -1,11 +1,7 @@
-
-from operator import methodcaller
 import os
 from flask import Flask, request, json, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import query
 from module import *
-import random
 
 # create flask instance
 app = Flask(__name__, static_folder='../client/build')
@@ -20,7 +16,6 @@ db = SQLAlchemy(app)
 @app.route('/create_user', methods=['post'])
 def create_user():
     req = request.json
-    user_id = random.getrandbits(18)
     first_name = req.get('first_name')
     last_name = req.get('last_name')
     email = req.get('email')
@@ -30,15 +25,16 @@ def create_user():
         'SELECT username FROM USERS WHERE USERS.firstname = \'{}\' AND USERS.username = \'{}\' '.format(first_name, user_name)).first()
     if result is None:
         db.engine.execute(
-            'INSERT INTO USERS VALUES(\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')'.format(user_id, first_name, last_name, user_name, email, password))
+            '''INSERT INTO USERS(firstname, lastname, username, email, password)
+            VALUES(\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')'''.format(first_name, last_name, user_name, email, password))
         user = db.engine.execute(
-            'SELECT username FROM USERS WHERE USERS.user_id = \'{}\' AND USERS.firstname = \'{}\' AND USERS.username = \'{}\' '.format(user_id, first_name, user_name)).first()
+            'SELECT username FROM USERS WHERE USERS.firstname = \'{}\' AND USERS.username = \'{}\''.format(first_name, user_name)).first()
         if user is None:
-            return {"user": "not added"}, 401
+            return {"user": "not added"}, 406
         else:
-            return {"user_name": str(user)}
+            return {"user_name": user.username}, 200
     else:
-        return {"user": 'User exists'}
+        return {"user": 'User exists'}, 401
 
 # check if you user exists
 
@@ -66,39 +62,39 @@ def login():
 
 @app.route("/Browse", methods=['GET'])
 def browse_recipe():
-
-    result = db.engine.execute(
-        '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, R.created_date, R.created_user_id,R.meal_id, RA.rating, M.type_name
-         FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id''').all()
-
-    if result is None:
-        return {"error": "unsuccessful query"}, 401
-    else:
-        return {'result': [dict(row) for row in result]}
-
-# meal_type filter
-
-
-@app.route("/mealtype", methods=['GET'])
-def meal_type_filter():
     param1 = request.args.get('param1')
     param2 = request.args.get('param2')
     param3 = request.args.get('param3')
     param4 = request.args.get('param4')
 
     if param1 is None and param2 is None and param3 is None and param4 is None:
-        return {"error": "unsuccessful query"}, 401
-
-    result = ""
-    if param1 is not None:
-        result += get_recipes_meal_type(param1)
-    if param2 is not None:
-        result += get_recipes_meal_type(param2)
-    if param3 is not None:
-        result += get_recipes_meal_type(param3)
-    if param4 is not None:
-        result += get_recipes_meal_type(param4)
-    return result, 200
+        # return {"error": "unsuccessful query"}, 401
+        result = db.engine.execute(
+            '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, R.created_date, R.created_user_id,R.meal_id, RA.rating, M.type_name
+            FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id''').all()
+        if result is None:
+            return {"error": "unsuccessful query"}, 401
+        else:
+            return {'result': [dict(row) for row in result]}
+    else:
+        result = {"result": []}
+        if param1 is not None:
+            recipes = get_recipes_meal_type(param1)
+            for x in recipes:
+                result['result'].append(x)
+        if param2 is not None:
+            recipes = get_recipes_meal_type(param2)
+            for x in recipes:
+                result['result'].append(x)
+        if param3 is not None:
+            recipes = get_recipes_meal_type(param3)
+            for x in recipes:
+                result['result'].append(x)
+        if param4 is not None:
+            recipes = get_recipes_meal_type(param4)
+            for x in recipes:
+                result['result'].append(x)
+        return result, 200
 
 # get specific meal
 
@@ -111,9 +107,9 @@ def meal_planner():
         return {"error": "unsuccessful query"}, 401
 
     result = db.engine.execute(
-        '''SELECT * FROM RECIPE, MEAL_TYPE
+        '''SELECT * FROM RECIPE, MEAL_TYPE, RATING
        WHERE recipe_total_cost <= {}
-       AND type_name = '{}' AND RECIPE.meal_id = MEAL_TYPE.meal_id
+       AND type_name = '{}' AND RECIPE.meal_id = MEAL_TYPE.meal_id AND RECIPE.recipe_id = RATING.recipe_id
        ORDER BY recipe_total_cost
     '''.format(cost, meal_type)).all()
     recipe_dict = [dict(row) for row in result]
@@ -132,13 +128,13 @@ def meal_planner():
 def get_recipes_meal_type(meal_type):
     query_result = db.engine.execute(
         '''
-        SELECT R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, M.type_name, RA.rating
+        SELECT R.recipe_id, R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, M.type_name, RA.rating
         FROM MEAL_TYPE M, RECIPE R, RATING RA
         WHERE M.type_name = '{}'
         AND R.meal_id = M.meal_id
         AND R.recipe_id = RA.recipe_id
            '''.format(meal_type)).all()
-    return json.dumps([dict(r) for r in query_result])
+    return [dict(r) for r in query_result]
 
 # search through the database
 
@@ -152,7 +148,6 @@ def search():
         FROM RECIPE
         WHERE LOWER(recipe_title) LIKE LOWER('%%{}%%')
         '''.format(arg)).all()
-    print(query_result)
 
     if query_result is None:
         return {"error": "unsuccessful query"}, 401
@@ -167,19 +162,20 @@ def browse_search():
     req = request.json
     response = req.get("filter")
     result = []
+    asc = 'ASC'
+    des = 'DESC'
+    statement = "SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, R.created_date, R.created_user_id,R.meal_id, RA.rating, M.type_name FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id ORDER BY recipe_total_cost {}"
     if response == 'cost_decending_order':
         result = db.engine.execute(
-            '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, R.created_date, R.created_user_id,R.meal_id, RA.rating, M.type_name
-         FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id ORDER BY recipe_total_cost DESC''').all()
+            statement.format(des)).all()
     elif response == 'cost_ascending_order':
         result = db.engine.execute(
-            '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, R.created_date, R.created_user_id,R.meal_id, RA.rating, M.type_name
-         FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id ORDER BY recipe_total_cost ASC''').all()
+            statement.format(asc)).all()
     elif response == 'rating':
         result = db.engine.execute(
             '''SELECT R.recipe_id,R.recipe_title, R.recipe_description, R.prep_time, R.recipe_total_cost, R.instructions, R.image_url, R.created_date, R.created_user_id,R.meal_id, RA.rating, M.type_name
          FROM RECIPE R, RATING RA,MEAL_TYPE M WHERE R.recipe_id=RA.recipe_id AND R.meal_id=M.meal_id 
-                ORDER BY R.recipe_total_cost ASC,RA.rating DESC''').all()
+                ORDER BY RA.rating DESC,R.recipe_total_cost ASC''').all()
     if result is None:
         return {"error": "unsuccessful query"}, 401
     else:
@@ -218,8 +214,6 @@ def get_recipe():
 
 
 # Serve React App
-
-
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):
@@ -233,4 +227,3 @@ if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     print("Running on port "+str(port)+"...")
     app.run(debug=True, host='0.0.0.0', port=port)
-    # meal_planner()
