@@ -1,0 +1,41 @@
+.AboutUs-wrapper {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  padding: 40px;
+}
+.main-heading{
+  color: rgb(204,18,18);
+  font-size: 26px;
+}
+.underline{
+  height: 04px;
+  width: 4rem;
+  background-color: #f76c2f;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.textWr{
+  padding: 40px;
+  background-color: rgb(30, 30, 30,0.7);
+}
+.con{
+  color:white;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+.bod{
+  padding-top: 40px;
+  padding-bottom: 40px;
+  padding: 40px;
+}
+
+.backg-image {
+  background-image: url(../components/uwt.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: absolute;
+  height: 100vh; 
+  min-height: 100%;
+  width: 100vw;
+  background-position: center; 
+}
