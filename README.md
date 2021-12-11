@@ -12,7 +12,7 @@ step1: ```cd SigmaMeals\server```
 
 step2: ```pip install requirements.txt``` if Mac/python3 ```pip3 install requirements.txt```
 
-
+step3: run app.py ```python app.py``` if on windows otherwise ```python3 app.py``` if Mac/Linux
 step3: ```cd SigmaMeals\cleint```
 
 
