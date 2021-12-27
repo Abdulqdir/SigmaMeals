@@ -12,14 +12,16 @@ step1: ```cd SigmaMeals\server```
 
 step2: ```pip install requirements.txt``` if Mac/python3 ```pip3 install requirements.txt```
 
-
-step3: ```cd SigmaMeals\cleint```
-
-
-step4: ```npm install```
+step3: run app.py ```python app.py``` if on windows otherwise ```python3 app.py``` if Mac/Linux
 
 
-step5: ```npm start```
+step4: ```cd SigmaMeals\cleint```
+
+
+step5: ```npm install```
+
+
+step6: ```npm start```
 
 # visit our website
 
