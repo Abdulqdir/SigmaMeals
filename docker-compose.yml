@@ -2,17 +2,17 @@ version: "3.9"
 services: 
   server:
     build: ./server
+    image: sigmamealcontainer.azurecr.io/server
+    container_name: server
     ports: 
-      - "5000:5000"
-    volumes: 
-      - ./server:/app
+      - "80:5000"
     environment: 
       FLASK_ENV: development
   web:
     build: ./client
+    image: sigmamealcontainer.azurecr.io/web
+    container_name: web
     ports: 
-      - "3000:3000"
-    volumes: 
-      - ./client:/user/src/app
+      - "8080:3000"
     depends_on: 
       - server

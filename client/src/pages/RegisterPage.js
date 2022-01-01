@@ -55,7 +55,7 @@ const RegisterPage = () => {
             <form>
               <ol>
                 <div>
-                  <label style={{ color: 'white' }}>First name: </label>
+                  <label style={{ color: 'white' }}></label>
                   <input
                     placeholder='first Name'
                     type='text'
@@ -66,7 +66,7 @@ const RegisterPage = () => {
                 </div>
                 <br></br>
                 <div>
-                  <label style={{ color: 'white' }}>Last name: </label>
+                  <label style={{ color: 'white' }}> </label>
                   <input
                     placeholder='last Name'
                     type='text'
@@ -77,7 +77,7 @@ const RegisterPage = () => {
                 </div>
                 <br></br>
                 <div>
-                  <label style={{ color: 'white' }}>Email: </label>
+                  <label style={{ color: 'white' }}> </label>
                   <input
                     placeholder='email@mail.com'
                     type='text'
@@ -88,7 +88,7 @@ const RegisterPage = () => {
                 </div>
                 <br></br>
                 <div>
-                  <label style={{ color: 'white' }}>Username: </label>
+                  <label style={{ color: 'white' }}></label>
                   <input
                     placeholder='user Name'
                     type='text'
@@ -99,7 +99,7 @@ const RegisterPage = () => {
                 </div>
                 <br></br>
                 <div>
-                  <label style={{ color: 'white' }}>Password: </label>
+                  <label style={{ color: 'white' }}></label>
                   <input
                     placeholder='***********'
                     type='password'
